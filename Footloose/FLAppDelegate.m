@@ -22,6 +22,7 @@
     [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
 		[SlideNavigationController sharedInstance].menuRevealAnimator = [[SlideNavigationContorllerAnimatorSlide alloc] init];
 	}];
+    [SlideNavigationController sharedInstance].portraitSlideOffset = 52.0f;
     
     return YES;
 }
