@@ -23,33 +23,187 @@
             </objects>
             <point key="canvasLocation" x="410" y="204"/>
         </scene>
-        <!--Contact Table View Controller-->
-        <scene sceneID="zDx-Jx-Bmf">
+        <!--Add Contact View Controller-->
+        <scene sceneID="Rwy-Te-D3l">
             <objects>
-                <tableViewController storyboardIdentifier="FLContactTableViewController" id="S8h-Oj-Llb" customClass="FLContactTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="GrB-SN-YuW">
+                <viewController storyboardIdentifier="FLAddContactViewController" id="HuS-Nx-kNX" customClass="FLAddContactViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Td2-nh-pDf"/>
+                        <viewControllerLayoutGuide type="bottom" id="Bsk-5C-Nwm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NYy-SI-7PQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="gLY-L6-cLV">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gLY-L6-cLV" id="L0y-7z-444">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="S8h-Oj-Llb" id="8dn-kq-b37"/>
-                            <outlet property="delegate" destination="S8h-Oj-Llb" id="x9W-CY-ulD"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DPl-j1-Kvm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GPy-2n-moO">
+                                <rect key="frame" x="52" y="0.0" width="268" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="URN-ji-4t9">
+                                        <rect key="frame" x="103" y="83" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.81069548229999999" green="0.45635230650000003" blue="0.37360188789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="2">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="numberButton2Pressed:" destination="HuS-Nx-kNX" eventType="touchUpInside" id="Xx8-6S-TyM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YbP-gk-QQj">
+                                        <rect key="frame" x="188" y="83" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.81069548229999999" green="0.45635230650000003" blue="0.37360188789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="3">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="numberButton3Pressed:" destination="HuS-Nx-kNX" eventType="touchUpInside" id="sY4-ep-vw0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJ8-Ap-bbA">
+                                        <rect key="frame" x="20" y="83" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.81069548229999999" green="0.45635230650000003" blue="0.37360188789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="1">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="numberButton1Pressed:" destination="HuS-Nx-kNX" eventType="touchUpInside" id="huY-J5-E47"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWG-ZV-y2A">
+                                        <rect key="frame" x="103" y="169" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.81069548229999999" green="0.45635230650000003" blue="0.37360188789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="5">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="numberButton5Pressed:" destination="HuS-Nx-kNX" eventType="touchUpInside" id="72w-ca-ek5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5g-XC-Ln8">
+                                        <rect key="frame" x="188" y="169" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.81069548229999999" green="0.45635230650000003" blue="0.37360188789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="6">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="numberButton6Pressed:" destination="HuS-Nx-kNX" eventType="touchUpInside" id="ljh-zP-Efj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ce-Zh-hXq">
+                                        <rect key="frame" x="20" y="169" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.81069548229999999" green="0.45635230650000003" blue="0.37360188789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="4">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="numberButton4Pressed:" destination="HuS-Nx-kNX" eventType="touchUpInside" id="eDc-JI-hxj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBm-Ez-Agw">
+                                        <rect key="frame" x="103" y="253" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.81069548229999999" green="0.45635230650000003" blue="0.37360188789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="8">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="numberButton8Pressed:" destination="HuS-Nx-kNX" eventType="touchUpInside" id="N0t-sD-ZK0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FeH-cr-5t9">
+                                        <rect key="frame" x="188" y="253" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.81069548229999999" green="0.45635230650000003" blue="0.37360188789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="9">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="numberButton9Pressed:" destination="HuS-Nx-kNX" eventType="touchUpInside" id="fox-AA-AGt"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XcM-ez-VCB">
+                                        <rect key="frame" x="20" y="253" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.81069548229999999" green="0.45635230650000003" blue="0.37360188789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="7">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="numberButton7Pressed:" destination="HuS-Nx-kNX" eventType="touchUpInside" id="6JR-HH-LKv"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="veo-Q8-43n">
+                                        <rect key="frame" x="103" y="338" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.81069548229999999" green="0.45635230650000003" blue="0.37360188789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="0">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="numberButton0Pressed:" destination="HuS-Nx-kNX" eventType="touchUpInside" id="de0-pQ-YN8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hIO-C5-S8x">
+                                        <rect key="frame" x="20" y="418" width="228" height="46"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.81069548229999999" green="0.45635230650000003" blue="0.37360188789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Connect">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addContactButtonPressed:" destination="HuS-Nx-kNX" eventType="touchUpInside" id="dAg-IS-7sN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yUV-FT-N18">
+                                        <rect key="frame" x="226" y="33" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.81069548229999999" green="0.45635230650000003" blue="0.37360188789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Del">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteButtonPressed:" destination="HuS-Nx-kNX" eventType="touchUpInside" id="9wL-AL-7eP"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add phone number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kT6-SJ-pvd">
+                                        <rect key="frame" x="48" y="33" width="170" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" red="0.30248642024492162" green="0.28644141514135885" blue="0.62419327445652173" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="568"/>
+                    <connections>
+                        <outlet property="addContactButton" destination="hIO-C5-S8x" id="N05-MC-2wW"/>
+                        <outlet property="deleteNumberButton" destination="yUV-FT-N18" id="ZL8-cQ-Ip2"/>
+                        <outlet property="numberButton0" destination="veo-Q8-43n" id="unD-Q0-eYD"/>
+                        <outlet property="numberButton1" destination="cJ8-Ap-bbA" id="PgX-pY-aZw"/>
+                        <outlet property="numberButton2" destination="URN-ji-4t9" id="1Zw-sB-pge"/>
+                        <outlet property="numberButton3" destination="YbP-gk-QQj" id="x6R-SO-so5"/>
+                        <outlet property="numberButton4" destination="2ce-Zh-hXq" id="9mW-Af-c7s"/>
+                        <outlet property="numberButton5" destination="EWG-ZV-y2A" id="PmL-kJ-7Jz"/>
+                        <outlet property="numberButton6" destination="i5g-XC-Ln8" id="zWr-dM-KTI"/>
+                        <outlet property="numberButton7" destination="XcM-ez-VCB" id="zuV-Qv-tti"/>
+                        <outlet property="numberButton8" destination="iBm-Ez-Agw" id="4hL-Ti-Alw"/>
+                        <outlet property="numberButton9" destination="FeH-cr-5t9" id="35i-1e-bFb"/>
+                        <outlet property="phoneNumberTextField" destination="kT6-SJ-pvd" id="dAh-e5-87p"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sP2-Zt-P87" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="842" y="204"/>
+            <point key="canvasLocation" x="410" y="932"/>
         </scene>
         <!--Slide Navigation Controller-->
         <scene sceneID="Ktd-6J-OWM">

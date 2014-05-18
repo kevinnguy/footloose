@@ -8,6 +8,9 @@
 
 #import "FLAppDelegate.h"
 
+#import "FLContactTableViewController.h"
+#import "FLAddContactViewController.h"
+
 #import <SlideNavigationController.h>
 #import <SlideNavigationContorllerAnimatorSlide.h>
 
@@ -16,13 +19,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle: nil];
-    FLContactTableViewController *leftViewController = (FLContactTableViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"FLContactTableViewController"];
+    FLContactTableViewController *leftViewController = [[FLContactTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    FLAddContactViewController *rightViewController = (FLAddContactViewController *)[mainStoryboard instantiateViewControllerWithIdentifier: @"FLAddContactViewController"];
     
     [SlideNavigationController sharedInstance].leftMenu = leftViewController;
+    [SlideNavigationController sharedInstance].rightMenu = rightViewController;
+    
+    [SlideNavigationController sharedInstance].portraitSlideOffset = 52.0f;
     [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
 		[SlideNavigationController sharedInstance].menuRevealAnimator = [[SlideNavigationContorllerAnimatorSlide alloc] init];
 	}];
-    [SlideNavigationController sharedInstance].portraitSlideOffset = 52.0f;
+
     
     return YES;
 }

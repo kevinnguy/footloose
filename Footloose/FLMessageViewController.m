@@ -376,6 +376,11 @@
 	return YES;
 }
 
+- (BOOL)slideNavigationControllerShouldDisplayRightMenu
+{
+	return YES;
+}
+
 #pragma mark - FLContactTableViewDelegate
 - (void)didSelectContact:(NSString *)contactName image:(UIImage *)image
 {
