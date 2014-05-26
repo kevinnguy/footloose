@@ -11,7 +11,7 @@
 #import <SlideNavigationController.h>
 
 @interface FLAddContactViewController ()
-
+@property (nonatomic, strong) NSString *phoneNumber;
 @end
 
 @implementation FLAddContactViewController
@@ -21,13 +21,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    self.phoneNumber = @"";
+
     [self setupNumberButtons];
-    
+
     self.addContactButton.layer.borderColor = self.addContactButton.tintColor.CGColor;
     self.addContactButton.layer.borderWidth = 2;
     self.addContactButton.layer.cornerRadius = CGRectGetHeight(self.addContactButton.frame) / 2;
     self.addContactButton.titleLabel.font = [UIFont systemFontOfSize:22.0f];
-    
+
     self.phoneNumberTextField.font = [UIFont systemFontOfSize:28.0f];
 }
 
@@ -85,52 +87,113 @@
 }
 
 - (IBAction)numberButton1Pressed:(id)sender {
-    self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:@"1"];
+    self.phoneNumber = [self.phoneNumber stringByAppendingString:@"1"];
+    [self formatPhoneNumberTextField];
 }
 
 - (IBAction)numberButton2Pressed:(id)sender {
-    self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:@"2"];
+    self.phoneNumber = [self.phoneNumber stringByAppendingString:@"2"];
+    [self formatPhoneNumberTextField];
 }
 
 - (IBAction)numberButton3Pressed:(id)sender {
-    self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:@"3"];
+    self.phoneNumber = [self.phoneNumber stringByAppendingString:@"3"];
+    [self formatPhoneNumberTextField];
 }
 
 - (IBAction)numberButton4Pressed:(id)sender {
-    self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:@"4"];
+    self.phoneNumber = [self.phoneNumber stringByAppendingString:@"4"];
+    [self formatPhoneNumberTextField];
 }
 
 - (IBAction)numberButton5Pressed:(id)sender {
-    self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:@"5"];
+    self.phoneNumber = [self.phoneNumber stringByAppendingString:@"5"];
+    [self formatPhoneNumberTextField];
 }
 
 - (IBAction)numberButton6Pressed:(id)sender {
-    self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:@"6"];
+    self.phoneNumber = [self.phoneNumber stringByAppendingString:@"6"];
+    [self formatPhoneNumberTextField];
 }
 
 - (IBAction)numberButton7Pressed:(id)sender {
-    self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:@"7"];
+    self.phoneNumber = [self.phoneNumber stringByAppendingString:@"7"];
+    [self formatPhoneNumberTextField];
 }
 
 - (IBAction)numberButton8Pressed:(id)sender {
-    self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:@"8"];
+    self.phoneNumber = [self.phoneNumber stringByAppendingString:@"8"];
+    [self formatPhoneNumberTextField];
 }
 
 - (IBAction)numberButton9Pressed:(id)sender {
-    self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:@"9"];
+    self.phoneNumber = [self.phoneNumber stringByAppendingString:@"9"];
+    [self formatPhoneNumberTextField];
 }
 
 - (IBAction)numberButton0Pressed:(id)sender {
-    self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:@"0"];
+    self.phoneNumber = [self.phoneNumber stringByAppendingString:@"0"];
+    [self formatPhoneNumberTextField];
 }
 
 - (IBAction)deleteButtonPressed:(id)sender {
-    self.phoneNumberTextField.text = [self.phoneNumberTextField.text substringToIndex:self.phoneNumberTextField.text.length - 1];
+    int length = self.phoneNumber.length;
+    
+    if (length == 0) {
+        return;
+    }
+
+    // If first number is 1
+    if ([[self.phoneNumber substringToIndex:1] isEqualToString:@"1"]) {
+        length--;
+        
+        if (self.phoneNumber.length == 1) {
+            self.phoneNumberTextField.text = @"";
+        }
+        else if (self.phoneNumber.length == 2) {
+            self.phoneNumberTextField.text = @"1";
+        }
+        else if (self.phoneNumber.length == 3) {
+            self.phoneNumberTextField.text = [NSString stringWithFormat:@"1 (%@  )", [self.phoneNumber substringWithRange:NSMakeRange(1, 1)]];
+
+        }
+        else if (self.phoneNumber.length == 4) {
+            self.phoneNumberTextField.text = [NSString stringWithFormat:@"1 (%@%@ )", [self.phoneNumber substringWithRange:NSMakeRange(1, 1)], [self.phoneNumber substringWithRange:NSMakeRange(2, 1)]];
+        }
+    }
+    else {
+        if (self.phoneNumber.length == 1) {
+            self.phoneNumberTextField.text = @"";
+        }
+        else if (self.phoneNumber.length == 2) {
+            self.phoneNumberTextField.text = [NSString stringWithFormat:@"(%@  )", [self.phoneNumber substringWithRange:NSMakeRange(0, 1)]];
+        }
+        else if (self.phoneNumber.length == 3) {
+            self.phoneNumberTextField.text = [NSString stringWithFormat:@"(%@%@ )", [self.phoneNumber substringWithRange:NSMakeRange(0, 1)], [self.phoneNumber substringWithRange:NSMakeRange(1, 1)]];
+        }
+    }
+    
+    if (length == 4) {
+        self.phoneNumberTextField.text = [self.phoneNumberTextField.text substringToIndex:self.phoneNumberTextField.text.length - 2];
+    }
+    else if (length == 5 || length == 6) {
+        self.phoneNumberTextField.text = [self.phoneNumberTextField.text substringToIndex:self.phoneNumberTextField.text.length - 1];
+    }
+    else if (length == 7) {
+        self.phoneNumberTextField.text = [self.phoneNumberTextField.text substringToIndex:self.phoneNumberTextField.text.length - 2];
+    }
+    else if (length > 7 && length < 11) {
+        self.phoneNumberTextField.text = [self.phoneNumberTextField.text substringToIndex:self.phoneNumberTextField.text.length - 1];
+    }
+    
+    self.phoneNumber = [self.phoneNumber substringToIndex:self.phoneNumber.length - 1];
 }
 
 - (IBAction)addContactButtonPressed:(id)sender {
     // Do something and then dismiss side menu
-    self.phoneNumberTextField.text = nil;
+    self.phoneNumberTextField.text = @"";
+    self.phoneNumber = @"";
+    
     [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
 
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Add name to this contact?" message:nil delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Okay", nil];
@@ -144,7 +207,52 @@
     [alertView show];
 }
 
-
+- (void)formatPhoneNumberTextField
+{
+    int length = self.phoneNumber.length;
+    
+    // If first number is 1
+    if ([[self.phoneNumber substringToIndex:1] isEqualToString:@"1"]) {
+        length--;
+        
+        if (self.phoneNumber.length == 1) {
+            self.phoneNumberTextField.text = @"1";
+        }
+        else if (self.phoneNumber.length == 2) {
+            self.phoneNumberTextField.text = [NSString stringWithFormat:@"1 (%@  )", [self.phoneNumber substringWithRange:NSMakeRange(1, 1)]];
+        }
+        else if (self.phoneNumber.length == 3) {
+            self.phoneNumberTextField.text = [NSString stringWithFormat:@"1 (%@%@ )", [self.phoneNumber substringWithRange:NSMakeRange(1, 1)], [self.phoneNumber substringWithRange:NSMakeRange(2, 1)]];
+        }
+        else if (self.phoneNumber.length == 4) {
+            self.phoneNumberTextField.text = [NSString stringWithFormat:@"1 (%@%@%@)", [self.phoneNumber substringWithRange:NSMakeRange(1, 1)], [self.phoneNumber substringWithRange:NSMakeRange(2, 1)], [self.phoneNumber substringWithRange:NSMakeRange(3, 1)]];
+        }
+    }
+    else {
+        if (self.phoneNumber.length == 1) {
+            self.phoneNumberTextField.text = [NSString stringWithFormat:@"(%@  )", [self.phoneNumber substringWithRange:NSMakeRange(0, 1)]];
+        }
+        else if (self.phoneNumber.length == 2) {
+            self.phoneNumberTextField.text = [NSString stringWithFormat:@"(%@%@ )", [self.phoneNumber substringWithRange:NSMakeRange(0, 1)], [self.phoneNumber substringWithRange:NSMakeRange(1, 1)]];
+        }
+        else if (self.phoneNumber.length == 3) {
+            self.phoneNumberTextField.text = [NSString stringWithFormat:@"(%@%@%@)", [self.phoneNumber substringWithRange:NSMakeRange(0, 1)], [self.phoneNumber substringWithRange:NSMakeRange(1, 1)], [self.phoneNumber substringWithRange:NSMakeRange(2, 1)]];
+        }
+    }
+    
+    if (length == 4) {
+        self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:[NSString stringWithFormat:@" %@", [self.phoneNumber substringFromIndex:self.phoneNumber.length - 1]]];
+    }
+    else if (length == 5 || length == 6) {
+        self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:[self.phoneNumber substringFromIndex:self.phoneNumber.length - 1]];
+    }
+    else if (length == 7) {
+        self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:[NSString stringWithFormat:@"-%@", [self.phoneNumber substringFromIndex:self.phoneNumber.length - 1]]];
+    }
+    else if (length > 7 && length < 11) {
+        self.phoneNumberTextField.text = [self.phoneNumberTextField.text stringByAppendingString:[self.phoneNumber substringFromIndex:self.phoneNumber.length - 1]];
+    }
+}
 
 
 

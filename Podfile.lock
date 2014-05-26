@@ -9,8 +9,8 @@ DEPENDENCIES:
   - JSQMessagesViewController (~> 5.0.1)
 
 SPEC CHECKSUMS:
-  iOS-Slide-Menu: 4af7b49b06d1dfa8fcabd83110b13666ba837f06
-  JSQMessagesViewController: 11aaf450f5ffe88102b7a24c8ef1475fabcd7a88
-  JSQSystemSoundPlayer: 6dbac8dcc33e3add6facb3e59451a0249aece17d
+  iOS-Slide-Menu: 5b934ec1ad3e1c7d895ec47b7b1223af8ee03666
+  JSQMessagesViewController: cbf2e75e2a08dab2e9eb6e571578a95517d6e73f
+  JSQSystemSoundPlayer: 0e636d5fd51e071fb708a0fec04e3d05175d9d27
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.33.1
