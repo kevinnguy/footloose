@@ -227,14 +227,13 @@
     // Do something and then dismiss side menu
     
     if ((self.phoneNumber.length < 11 && [[self.phoneNumber substringToIndex:1] isEqualToString:@"1"]) || self.phoneNumber.length < 10) {
-
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Invalid Number" message:@"Please complete the phone number" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [alertView show];
         return;
     }
     
     [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
-    [self.delegate didConnectWithPhoneNumber:self.phoneNumber];
+    [self.delegate didConnectWithPhoneNumber:self.phoneNumberTextField.text];
     
     self.phoneNumberTextField.text = @"";
     self.phoneNumber = @"";

@@ -14,8 +14,7 @@
 #import <JSQMessagesViewController/JSQMessages.h>
 #import <SlideNavigationController.h>
 
-
-@interface FLMessageViewController () <SlideNavigationControllerDelegate, FLContactTableViewDelegate, FLAddContactDelegate>
+@interface FLMessageViewController () <SlideNavigationControllerDelegate, FLContactTableViewDelegate, FLAddContactDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) NSString *recipient;
 @property (nonatomic, strong) UIImage *recipientImage;
 
@@ -24,6 +23,9 @@
 
 @property (strong, nonatomic) UIImageView *outgoingBubbleImageView;
 @property (strong, nonatomic) UIImageView *incomingBubbleImageView;
+
+@property (nonatomic, strong) UIAlertView *addContactAlertView;
+@property (nonatomic, strong) NSString *selectedPhoneNumber;
 @end
 
 @implementation FLMessageViewController
@@ -63,6 +65,14 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeInfoLight];
     [button addTarget:self action:@selector(rightBarButtonItemPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    self.addContactAlertView = [[UIAlertView alloc] initWithTitle:@"Add name to this contact?" message:nil delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Okay", nil];
+    self.addContactAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    self.addContactAlertView.delegate = self;
+    UITextField *textField = [self.addContactAlertView textFieldAtIndex:0];
+    textField.placeholder = @"John Doe";
+    textField.keyboardType = UIKeyboardTypeAlphabet;
+    textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 }
 
 - (void)rightBarButtonItemPressed:(id)sender
@@ -399,17 +409,28 @@
 #pragma mark - FLAddContactDelegate
 - (void)didConnectWithPhoneNumber:(NSString *)phoneNumber
 {
-    NSLog(@"%@", phoneNumber);
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Add name to this contact?" message:nil delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Okay", nil];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    
-    UITextField *textField = [alertView textFieldAtIndex:0];
-    textField.placeholder = @"John Doe";
-    textField.keyboardType = UIKeyboardTypeAlphabet;
-    textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    
-    [alertView show];
+    self.selectedPhoneNumber = phoneNumber;
+    [self.addContactAlertView show];
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView == self.addContactAlertView) {
+        NSString *name = [self.addContactAlertView textFieldAtIndex:0].text;
+        [self.addContactAlertView textFieldAtIndex:0].text = nil;
+        
+        self.recipient = name.length ? name : self.selectedPhoneNumber;
+        self.recipientImage = [UIImage imageNamed:@"avatar"];
+        [self setupTestModel];
+        [self.collectionView reloadData];
+        [self scrollToBottomAnimated:YES];
+        
+        [self didPressSendButton:nil
+                 withMessageText:@"Take a look at my resume!"
+                          sender:self.sender
+                            date:[NSDate date]];
+    }
 }
 
 @end
