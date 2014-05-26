@@ -10,8 +10,10 @@
 
 #import <SlideNavigationController.h>
 
-@interface FLAddContactViewController ()
+@interface FLAddContactViewController () <UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSString *phoneNumber;
+@property (nonatomic, strong) UILongPressGestureRecognizer *deleteNumberLongPressGesture;
+@property (nonatomic, strong) NSTimer *deleteNumberTimer;
 @end
 
 @implementation FLAddContactViewController
@@ -31,6 +33,38 @@
     self.addContactButton.titleLabel.font = [UIFont systemFontOfSize:22.0f];
 
     self.phoneNumberTextField.font = [UIFont systemFontOfSize:28.0f];
+    
+    self.deleteNumberLongPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(holdDeleteNumberButton:)];
+    self.deleteNumberLongPressGesture.minimumPressDuration = 0.3f;
+    self.deleteNumberLongPressGesture.cancelsTouchesInView = NO;
+    self.deleteNumberLongPressGesture.delegate = self;
+    [self.deleteNumberButton addGestureRecognizer:self.deleteNumberLongPressGesture];
+    
+    self.deleteNumberButton.layer.borderColor = self.deleteNumberButton.tintColor.CGColor;
+    self.deleteNumberButton.layer.borderWidth = 2;
+    self.deleteNumberButton.layer.cornerRadius = CGRectGetWidth(self.deleteNumberButton.frame) / 2;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return YES;
+}
+
+- (void)holdDeleteNumberButton:(UIGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        if (self.deleteNumberTimer) {
+            [self.deleteNumberTimer invalidate];
+            self.deleteNumberTimer = nil;
+        }
+        
+        self.deleteNumberTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(deleteButtonPressed:) userInfo:nil repeats:YES];
+    }
+    
+    if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
+        [self.deleteNumberTimer invalidate];
+        self.deleteNumberTimer = nil;
+    }
 }
 
 - (void)setupNumberButtons
@@ -191,20 +225,19 @@
 
 - (IBAction)addContactButtonPressed:(id)sender {
     // Do something and then dismiss side menu
-    self.phoneNumberTextField.text = @"";
-    self.phoneNumber = @"";
+    
+    if ((self.phoneNumber.length < 11 && [[self.phoneNumber substringToIndex:1] isEqualToString:@"1"]) || self.phoneNumber.length < 10) {
+
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Invalid Number" message:@"Please complete the phone number" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
     
     [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
-
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Add name to this contact?" message:nil delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Okay", nil];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-
-    UITextField *textField = [alertView textFieldAtIndex:0];
-    textField.placeholder = @"John Doe";
-    textField.keyboardType = UIKeyboardTypeAlphabet;
-    textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-
-    [alertView show];
+    [self.delegate didConnectWithPhoneNumber:self.phoneNumber];
+    
+    self.phoneNumberTextField.text = @"";
+    self.phoneNumber = @"";
 }
 
 - (void)formatPhoneNumberTextField

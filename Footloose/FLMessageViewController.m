@@ -9,12 +9,13 @@
 #import "FLMessageViewController.h"
 
 #import "FLContactTableViewController.h"
+#import "FLAddContactViewController.h"
 
 #import <JSQMessagesViewController/JSQMessages.h>
 #import <SlideNavigationController.h>
 
 
-@interface FLMessageViewController () <SlideNavigationControllerDelegate, FLContactTableViewDelegate>
+@interface FLMessageViewController () <SlideNavigationControllerDelegate, FLContactTableViewDelegate, FLAddContactDelegate>
 @property (nonatomic, strong) NSString *recipient;
 @property (nonatomic, strong) UIImage *recipientImage;
 
@@ -38,6 +39,9 @@
     
     FLContactTableViewController *contactTableViewController = (FLContactTableViewController *)[SlideNavigationController sharedInstance].leftMenu;
     contactTableViewController.delegate = self;
+    
+    FLAddContactViewController *addContactViewController = (FLAddContactViewController *)[SlideNavigationController sharedInstance].rightMenu;
+    addContactViewController.delegate = self;
     
     [self setupTestModel];
     
@@ -390,6 +394,22 @@
     [self.collectionView reloadData];
     [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
     [self scrollToBottomAnimated:YES];
+}
+
+#pragma mark - FLAddContactDelegate
+- (void)didConnectWithPhoneNumber:(NSString *)phoneNumber
+{
+    NSLog(@"%@", phoneNumber);
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Add name to this contact?" message:nil delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Okay", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    UITextField *textField = [alertView textFieldAtIndex:0];
+    textField.placeholder = @"John Doe";
+    textField.keyboardType = UIKeyboardTypeAlphabet;
+    textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    
+    [alertView show];
 }
 
 @end

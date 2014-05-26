@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol FLAddContactDelegate <NSObject>
+
+- (void)didConnectWithPhoneNumber:(NSString *)phoneNumber;
+
+@end
+
 @interface FLAddContactViewController : UIViewController
+
+@property (nonatomic, assign) id<FLAddContactDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UIButton *numberButton1;
 @property (weak, nonatomic) IBOutlet UIButton *numberButton2;
