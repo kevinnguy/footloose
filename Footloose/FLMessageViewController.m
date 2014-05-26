@@ -13,10 +13,11 @@
 
 #import <JSQMessagesViewController/JSQMessages.h>
 #import <SlideNavigationController.h>
+#import <Firebase/Firebase.h>
 
 @interface FLMessageViewController () <SlideNavigationControllerDelegate, FLContactTableViewDelegate, FLAddContactDelegate, UIAlertViewDelegate>
-@property (nonatomic, strong) NSString *recipient;
-@property (nonatomic, strong) UIImage *recipientImage;
+@property (nonatomic, strong) FLUser *user;
+@property (nonatomic, strong) FLUser *recipient;
 
 @property (strong, nonatomic) NSMutableArray *messages;
 @property (copy, nonatomic) NSDictionary *avatars;
@@ -26,7 +27,11 @@
 
 @property (nonatomic, strong) UIAlertView *addContactAlertView;
 @property (nonatomic, strong) NSString *selectedPhoneNumber;
+
+@property (nonatomic, strong) Firebase *firebase;
 @end
+
+NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
 
 @implementation FLMessageViewController
 
@@ -34,10 +39,10 @@
 {
     [super viewDidLoad];
     
-    self.sender = @"Kevin Nguy";
-    self.recipient = @"Tim Cook";
-    self.recipientImage = [UIImage imageNamed:@"demo_avatar_cook"];
-    self.title = self.recipient;
+    self.user = [[FLUser alloc] initWithName:@"Kevin Nguy"
+                                   phoneNumber:@"4153956852"
+                                  profileImage:[UIImage imageNamed:@"kevin"]];
+    self.sender = self.user.phoneNumber;
     
     FLContactTableViewController *contactTableViewController = (FLContactTableViewController *)[SlideNavigationController sharedInstance].leftMenu;
     contactTableViewController.delegate = self;
@@ -45,7 +50,10 @@
     FLAddContactViewController *addContactViewController = (FLAddContactViewController *)[SlideNavigationController sharedInstance].rightMenu;
     addContactViewController.delegate = self;
     
-    [self setupTestModel];
+    self.recipient = contactTableViewController.contactArray.firstObject;
+    
+    
+    [self setupMessages];
     
     /**
      *  Remove camera button since media messages are not yet implemented
@@ -62,10 +70,6 @@
     self.incomingBubbleImageView = [JSQMessagesBubbleImageFactory
                                     incomingMessageBubbleImageViewWithColor:[UIColor jsq_messageBubbleGreenColor]];
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    [button addTarget:self action:@selector(rightBarButtonItemPressed:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
     self.addContactAlertView = [[UIAlertView alloc] initWithTitle:@"Add name to this contact?" message:nil delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Okay", nil];
     self.addContactAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     self.addContactAlertView.delegate = self;
@@ -75,11 +79,6 @@
     textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 }
 
-- (void)rightBarButtonItemPressed:(id)sender
-{
-    
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -87,41 +86,75 @@
     self.collectionView.collectionViewLayout.springinessEnabled = NO;
 }
 
-- (void)setupTestModel
+- (void)setupMessages
 {
-    self.title = self.recipient;
+//    self.firebase = [[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@/%@/%@", kFirebaseURL, self.user.phoneNumber, self.recipient.phoneNumber]];
+    
+    if (self.recipient.name.length) {
+        self.title = self.recipient.name;
+    } else {
+        self.title = [NSString stringWithFormat:@"(%@) %@-%@",
+                      [self.recipient.phoneNumber substringWithRange:NSMakeRange(0, 3)],
+                      [self.recipient.phoneNumber substringWithRange:NSMakeRange(3, 3)],
+                      [self.recipient.phoneNumber substringWithRange:NSMakeRange(6, 4)]];
+    }
+    
+//    NSDictionary *message = @{
+//                              @"sender" : self.user.phoneNumber,
+//                              @"message" : @"Hey there testing",
+//                              @"timestamp" : [NSDate date]
+//                              };
+//    
+//    [[self.firebase childByAutoId] setValue:message];
+//    
+//    message = @{
+//                @"sender" : self.recipient.phoneNumber,
+//                @"message" : @"What's up",
+//                @"timestamp" : [NSDate date]
+//                };
+//    
+//    [[self.firebase childByAutoId] setValue:message];
+    
+    
+    
+    
+    
+    
     
     CGFloat outgoingDiameter = self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width;
     UIImage *senderImage = [JSQMessagesAvatarFactory avatarWithImage:[UIImage imageNamed:@"kevin"]
                                                             diameter:outgoingDiameter];
     
     CGFloat incomingDiameter = self.collectionView.collectionViewLayout.incomingAvatarViewSize.width;
-    UIImage *recipientImage = [JSQMessagesAvatarFactory avatarWithImage:self.recipientImage
+    UIImage *recipientImage = [JSQMessagesAvatarFactory avatarWithImage:self.recipient.profileImage
                                                                diameter:incomingDiameter];
     
-    self.avatars = @{ self.sender : senderImage,
-                      self.recipient : recipientImage };
+    self.avatars = @{ self.user.phoneNumber : senderImage,
+                      self.recipient.phoneNumber : recipientImage };
     
     self.messages = [[NSMutableArray alloc] initWithObjects:
                      [[JSQMessage alloc] initWithText:@"Welcome to JSQMessages: A messaging UI framework for iOS." sender:self.sender date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"It is simple, elegant, and easy to use. There are super sweet default settings, but you can customize like crazy." sender:self.recipient date:[NSDate distantPast]],
+                     [[JSQMessage alloc] initWithText:@"It is simple, elegant, and easy to use. There are super sweet default settings, but you can customize like crazy." sender:self.recipient.phoneNumber date:[NSDate distantPast]],
                      [[JSQMessage alloc] initWithText:@"It even has data detectors. You can call me tonight. My cell number is 123-456-7890. My website is www.hexedbits.com." sender:self.sender date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"JSQMessagesViewController is nearly an exact replica of the iOS Messages App. And perhaps, better." sender:self.recipient date:[NSDate date]],
-                     [[JSQMessage alloc] initWithText:@"It is unit-tested, free, and open-source." sender:self.recipient date:[NSDate date]],
+                     [[JSQMessage alloc] initWithText:@"JSQMessagesViewController is nearly an exact replica of the iOS Messages App. And perhaps, better." sender:self.recipient.phoneNumber date:[NSDate date]],
+                     [[JSQMessage alloc] initWithText:@"It is unit-tested, free, and open-source." sender:self.recipient.phoneNumber date:[NSDate date]],
                      [[JSQMessage alloc] initWithText:@"Oh, and there's sweet documentation." sender:self.sender date:[NSDate date]],
                      [[JSQMessage alloc] initWithText:@"Welcome to JSQMessages: A messaging UI framework for iOS." sender:self.sender date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"It is simple, elegant, and easy to use. There are super sweet default settings, but you can customize like crazy." sender:self.recipient date:[NSDate distantPast]],
+                     [[JSQMessage alloc] initWithText:@"It is simple, elegant, and easy to use. There are super sweet default settings, but you can customize like crazy." sender:self.recipient.phoneNumber date:[NSDate distantPast]],
                      [[JSQMessage alloc] initWithText:@"It even has data detectors. You can call me tonight. My cell number is 123-456-7890. My website is www.hexedbits.com." sender:self.sender date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"JSQMessagesViewController is nearly an exact replica of the iOS Messages App. And perhaps, better." sender:self.recipient date:[NSDate date]],
-                     [[JSQMessage alloc] initWithText:@"It is unit-tested, free, and open-source." sender:self.recipient date:[NSDate date]],
+                     [[JSQMessage alloc] initWithText:@"JSQMessagesViewController is nearly an exact replica of the iOS Messages App. And perhaps, better." sender:self.recipient.phoneNumber date:[NSDate date]],
+                     [[JSQMessage alloc] initWithText:@"It is unit-tested, free, and open-source." sender:self.recipient.phoneNumber date:[NSDate date]],
                      [[JSQMessage alloc] initWithText:@"Oh, and there's sweet documentation." sender:self.sender date:[NSDate date]],
                      [[JSQMessage alloc] initWithText:@"Welcome to JSQMessages: A messaging UI framework for iOS." sender:self.sender date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"It is simple, elegant, and easy to use. There are super sweet default settings, but you can customize like crazy." sender:self.recipient date:[NSDate distantPast]],
+                     [[JSQMessage alloc] initWithText:@"It is simple, elegant, and easy to use. There are super sweet default settings, but you can customize like crazy." sender:self.recipient.phoneNumber date:[NSDate distantPast]],
                      [[JSQMessage alloc] initWithText:@"It even has data detectors. You can call me tonight. My cell number is 123-456-7890. My website is www.hexedbits.com." sender:self.sender date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"JSQMessagesViewController is nearly an exact replica of the iOS Messages App. And perhaps, better." sender:self.recipient date:[NSDate date]],
-                     [[JSQMessage alloc] initWithText:@"It is unit-tested, free, and open-source." sender:self.recipient date:[NSDate date]],
+                     [[JSQMessage alloc] initWithText:@"JSQMessagesViewController is nearly an exact replica of the iOS Messages App. And perhaps, better." sender:self.recipient.phoneNumber date:[NSDate date]],
+                     [[JSQMessage alloc] initWithText:@"It is unit-tested, free, and open-source." sender:self.recipient.phoneNumber date:[NSDate date]],
                      [[JSQMessage alloc] initWithText:@"Oh, and there's sweet documentation." sender:self.sender date:[NSDate date]],
                      nil];
+    
+    [self.collectionView reloadData];
+    [self scrollToBottomAnimated:YES];
 }
 
 #pragma mark - JSQMessagesViewController method overrides
@@ -396,14 +429,12 @@
 }
 
 #pragma mark - FLContactTableViewDelegate
-- (void)didSelectContact:(NSString *)contactName image:(UIImage *)image
+- (void)didSelectUser:(FLUser *)user
 {
-    self.recipient = contactName;
-    self.recipientImage = image;
-    [self setupTestModel];
-    [self.collectionView reloadData];
+    self.recipient = user;
+    [self setupMessages];
+
     [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
-    [self scrollToBottomAnimated:YES];
 }
 
 #pragma mark - FLAddContactDelegate
@@ -420,15 +451,16 @@
         NSString *name = [self.addContactAlertView textFieldAtIndex:0].text;
         [self.addContactAlertView textFieldAtIndex:0].text = nil;
         
-        self.recipient = name.length ? name : self.selectedPhoneNumber;
-        self.recipientImage = [UIImage imageNamed:@"avatar"];
-        [self setupTestModel];
-        [self.collectionView reloadData];
-        [self scrollToBottomAnimated:YES];
+        self.recipient = [[FLUser alloc] initWithName:name
+                                          phoneNumber:self.selectedPhoneNumber
+                                         profileImage:[UIImage imageNamed:@"avatar"]];
+        
+
+        [self setupMessages];
         
         [self didPressSendButton:nil
                  withMessageText:@"Take a look at my resume!"
-                          sender:self.sender
+                          sender:self.user.name
                             date:[NSDate date]];
     }
 }

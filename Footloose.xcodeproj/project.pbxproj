@@ -26,6 +26,7 @@
 		0A3BABB3191806AB00B1B2DF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A3BABB1191806AB00B1B2DF /* InfoPlist.strings */; };
 		0A3BABB5191806AB00B1B2DF /* FootlooseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3BABB4191806AB00B1B2DF /* FootlooseTests.m */; };
 		0A3E2ACC1928A49B00F9EDDF /* FLAddContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E2ACB1928A49B00F9EDDF /* FLAddContactViewController.m */; };
+		0A4670461933C145009590F0 /* FLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4670451933C145009590F0 /* FLUser.m */; };
 		82D69BBC1D594AB1A4FA9D34 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAD2614685D43A8BB75E08C /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,8 @@
 		0A3BABB4191806AB00B1B2DF /* FootlooseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FootlooseTests.m; sourceTree = "<group>"; };
 		0A3E2ACA1928A49B00F9EDDF /* FLAddContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAddContactViewController.h; sourceTree = "<group>"; };
 		0A3E2ACB1928A49B00F9EDDF /* FLAddContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAddContactViewController.m; sourceTree = "<group>"; };
+		0A4670441933C145009590F0 /* FLUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLUser.h; sourceTree = "<group>"; };
+		0A4670451933C145009590F0 /* FLUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLUser.m; sourceTree = "<group>"; };
 		34BD9C101D5F4553B0F4C4E3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		9BAD2614685D43A8BB75E08C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -132,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				0A3BABBF1918090100B1B2DF /* App */,
+				0A4670431933C129009590F0 /* Model */,
 				0A3BABC319180CB800B1B2DF /* Views */,
 				0A3BABBE191808D700B1B2DF /* View Controllers */,
 			);
@@ -201,6 +205,15 @@
 				0A313C4819281BF6006CC8E7 /* FLContactTableViewCell.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		0A4670431933C129009590F0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0A4670441933C145009590F0 /* FLUser.h */,
+				0A4670451933C145009590F0 /* FLUser.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -342,6 +355,7 @@
 				0A313C411927FEBB006CC8E7 /* FLMessageViewController.m in Sources */,
 				0A313C4419281161006CC8E7 /* FLContactTableViewController.m in Sources */,
 				0A3E2ACC1928A49B00F9EDDF /* FLAddContactViewController.m in Sources */,
+				0A4670461933C145009590F0 /* FLUser.m in Sources */,
 				0A313C4719281BDB006CC8E7 /* FLContactTableViewCell.m in Sources */,
 				0A3BAB93191806AB00B1B2DF /* main.m in Sources */,
 			);

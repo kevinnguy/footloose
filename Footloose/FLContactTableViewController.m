@@ -11,7 +11,6 @@
 #import "FLContactTableViewCell.h"
 
 @interface FLContactTableViewController ()
-@property (nonatomic, strong) NSMutableArray *contactArray;
 @end
 
 static NSString * const kJSQDemoAvatarNameCook = @"Tim Cook";
@@ -23,25 +22,35 @@ static NSString * const kCellIdentifier = @"FLContactTableViewCellIdentifier";
 
 @implementation FLContactTableViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.contactArray = [NSMutableArray new];
+        
+        FLUser *cook = [[FLUser alloc] initWithName:kJSQDemoAvatarNameCook
+                                        phoneNumber:@"4152345678"
+                                       profileImage:[UIImage imageNamed:@"demo_avatar_cook"]];
+        
+        FLUser *jobs = [[FLUser alloc] initWithName:kJSQDemoAvatarNameJobs
+                                        phoneNumber:@"5102345678"
+                                       profileImage:[UIImage imageNamed:@"demo_avatar_jobs"]];
+        
+        FLUser *woz = [[FLUser alloc] initWithName:kJSQDemoAvatarNameWoz
+                                       phoneNumber:@"3102343456"
+                                      profileImage:[UIImage imageNamed:@"demo_avatar_woz"]];
+        
+        [self.contactArray addObject:cook];
+        [self.contactArray addObject:jobs];
+        [self.contactArray addObject:woz];
+
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.contactArray = [NSMutableArray new];
-    for (int i = 0; i < 100; i++) {
-        NSString *name;
-        if (i % 3 == 0) {
-            name = kJSQDemoAvatarNameCook;
-        }
-        else if (i % 3 == 1) {
-            name = kJSQDemoAvatarNameJobs;
-        }
-        else {
-            name = kJSQDemoAvatarNameWoz;
-        }
-        
-        [self.contactArray addObject:name];
-    }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"FLContactTableViewCell" bundle:nil]
          forCellReuseIdentifier:kCellIdentifier];
@@ -77,27 +86,18 @@ static NSString * const kCellIdentifier = @"FLContactTableViewCellIdentifier";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FLContactTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+    FLUser *user = self.contactArray[indexPath.row];
     
-    cell.contactTextLabel.text = self.contactArray[indexPath.row];
-    
-    if ([cell.contactTextLabel.text isEqualToString:kJSQDemoAvatarNameCook]) {
-        cell.contactImageView.image = [UIImage imageNamed:@"demo_avatar_cook"];
-    }
-    else if ([cell.contactTextLabel.text isEqualToString:kJSQDemoAvatarNameJobs]) {
-        cell.contactImageView.image = [UIImage imageNamed:@"demo_avatar_jobs"];
-    }
-    else {
-        cell.contactImageView.image = [UIImage imageNamed:@"demo_avatar_woz"];
-    }
+    cell.contactTextLabel.text = user.name;
+    cell.contactImageView.image = user.profileImage;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FLContactTableViewCell *cell = (FLContactTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    [self.delegate didSelectContact:cell.contactTextLabel.text image:cell.contactImageView.image];
-    
+    FLUser *user = self.contactArray[indexPath.row];
+    [self.delegate didSelectUser:user];
 }
 
 @end

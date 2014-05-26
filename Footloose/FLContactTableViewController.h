@@ -8,12 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+#import "FLUser.h"
+
 @protocol FLContactTableViewDelegate <NSObject>
 
-- (void)didSelectContact:(NSString *)contactName image:(UIImage *)image;
+- (void)didSelectUser:(FLUser *)user;
 
 @end
 
 @interface FLContactTableViewController : UITableViewController
 @property (nonatomic, assign) id<FLContactTableViewDelegate> delegate;
+
+@property (nonatomic, strong) NSMutableArray *contactArray;
+
 @end
