@@ -16,6 +16,7 @@
 #import <JSQMessagesViewController/JSQMessages.h>
 #import <SlideNavigationController.h>
 #import <Firebase/Firebase.h>
+#import <AFNetworking/AFNetworking.h>
 
 @interface FLMessageViewController () <SlideNavigationControllerDelegate, FLContactTableViewDelegate, FLAddContactDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) FLUser *user;
@@ -37,7 +38,9 @@
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @end
 
-NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
+NSString *const kFirebaseBaseURL = @"https://footloose.firebaseio.com/";
+NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
+
 
 @implementation FLMessageViewController
 
@@ -106,7 +109,7 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
     self.avatars = @{ self.user.phoneNumber : senderImage,
                       self.recipient.phoneNumber : recipientImage };
     
-    self.firebase = [[Firebase alloc] initWithUrl:kFirebaseURL];
+    self.firebase = [[Firebase alloc] initWithUrl:kFirebaseBaseURL];
     self.firebase = [self.firebase childByAppendingPath:self.user.phoneNumber];
     self.firebase = [self.firebase childByAppendingPath:self.recipient.phoneNumber];
     
@@ -203,7 +206,7 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
     
     JSQMessage *message = [self.messages objectAtIndex:indexPath.item];
     
-    if ([message.sender isEqualToString:self.sender]) {
+    if ([message.sender isEqualToString:self.user.phoneNumber]) {
         return [[UIImageView alloc] initWithImage:self.outgoingBubbleImageView.image
                                  highlightedImage:self.outgoingBubbleImageView.highlightedImage];
     }
@@ -264,7 +267,7 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
 //    /**
 //     *  iOS7-style sender name labels
 //     */
-//    if ([message.sender isEqualToString:self.sender]) {
+//    if ([message.sender isEqualToString:self.user.phoneNumber]) {
 //        return nil;
 //    }
 //    
@@ -315,9 +318,9 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
      *  Instead, override the properties you want on `self.collectionView.collectionViewLayout` from `viewDidLoad`
      */
     
-    JSQMessage *msg = [self.messages objectAtIndex:indexPath.item];
+    JSQMessage *message = [self.messages objectAtIndex:indexPath.item];
     
-    if ([msg.sender isEqualToString:self.sender]) {
+    if ([message.sender isEqualToString:self.user.phoneNumber]) {
         cell.textView.textColor = [UIColor blackColor];
     }
     else {
@@ -360,7 +363,7 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
      *  iOS7-style sender name labels
      */
     JSQMessage *currentMessage = [self.messages objectAtIndex:indexPath.item];
-    if ([[currentMessage sender] isEqualToString:self.sender]) {
+    if ([[currentMessage sender] isEqualToString:self.user.phoneNumber]) {
         return 0.0f;
     }
     
@@ -435,8 +438,20 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
         
         [self didPressSendButton:nil
                  withMessageText:@"Take a look at my resume!"
-                          sender:self.sender
+                          sender:self.user.phoneNumber
                             date:[NSDate date]];
+        
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:kPreambleBaseURL]];
+        NSDictionary *parameters = @{@"message" : @"Take a look at my resume! google.com",
+                                     @"number" : [@"+1" stringByAppendingString:self.selectedPhoneNumber]};
+        
+        [manager POST:@"/message"
+           parameters:parameters
+              success:^(NSURLSessionDataTask *task, id responseObject) {
+                  
+              } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                  
+              }];
     }
 }
 
