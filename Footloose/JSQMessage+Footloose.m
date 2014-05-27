@@ -9,12 +9,12 @@
 #import "JSQMessage+Footloose.h"
 
 @implementation JSQMessage (Footloose)
-- (NSDictionary *)JSONFormat
+- (NSDictionary *)JSONFormatWithDateFormatter:(NSDateFormatter *)dateFormatter
 {
     return @{
              @"sender" : self.sender,
              @"text" : self.text,
-             @"timestamp" : self.date.description
+             @"timestamp" : [dateFormatter stringFromDate:self.date]
              };
 }
 @end

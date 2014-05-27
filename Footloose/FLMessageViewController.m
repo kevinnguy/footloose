@@ -33,6 +33,8 @@
 @property (nonatomic, strong) Firebase *firebase;
 @property (nonatomic, assign) FirebaseHandle *firebaseHandle;
 @property (nonatomic, assign) BOOL doneFetchingFlag;
+
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @end
 
 NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
@@ -56,7 +58,8 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
     
     self.recipient = contactTableViewController.contactArray.firstObject;
     
-    
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    self.dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss ZZZ";
     /**
      *  Remove camera button since media messages are not yet implemented
      *
@@ -121,7 +124,7 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
     [self.firebase observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         JSQMessage *message = [[JSQMessage alloc] initWithText:[snapshot.value objectForKey:@"text"]
                                                         sender:[snapshot.value objectForKey:@"sender"]
-                                                          date:[NSDate date]];
+                                                          date:[self.dateFormatter dateFromString:[snapshot.value objectForKey:@"timestamp"]]];
         [self.messages addObject:message];
         
         if (self.doneFetchingFlag) {
@@ -138,8 +141,7 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
         
         self.doneFetchingFlag = YES;
     }];
-    
-    [self.collectionView reloadData];
+
     [self scrollToBottomAnimated:YES];
 }
 
@@ -153,7 +155,7 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
     JSQMessage *message = [[JSQMessage alloc] initWithText:text sender:sender date:date];
-    [self.firebase.childByAutoId setValue:[message JSONFormat]];
+    [self.firebase.childByAutoId setValue:[message JSONFormatWithDateFormatter:self.dateFormatter]];
     
     [self finishSendingMessage];
     [self scrollToBottomAnimated:YES];
@@ -170,7 +172,7 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
                                                         sender:self.recipient.phoneNumber
                                                           date:[NSDate date]];
 
-        [self.firebase.childByAutoId setValue:[message JSONFormat]];
+        [self.firebase.childByAutoId setValue:[message JSONFormatWithDateFormatter:self.dateFormatter]];
         
         [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
         [self finishReceivingMessage];

@@ -10,6 +10,6 @@
 
 @interface JSQMessage (Footloose)
 
-- (NSDictionary *)JSONFormat;
+- (NSDictionary *)JSONFormatWithDateFormatter:(NSDateFormatter *)dateFormatter;
 
 @end
