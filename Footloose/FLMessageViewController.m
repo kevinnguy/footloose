@@ -46,7 +46,7 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
     [super viewDidLoad];
     
     self.user = [[FLUser alloc] initWithName:@"Kevin Nguy"
-                                   phoneNumber:@"4153956852"
+                                   phoneNumber:@"9009001111"
                                   profileImage:[UIImage imageNamed:@"kevin"]];
     self.sender = self.user.phoneNumber;
     
