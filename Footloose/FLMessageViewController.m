@@ -11,6 +11,8 @@
 #import "FLContactTableViewController.h"
 #import "FLAddContactViewController.h"
 
+#import "JSQMessage+Footloose.h"
+
 #import <JSQMessagesViewController/JSQMessages.h>
 #import <SlideNavigationController.h>
 #import <Firebase/Firebase.h>
@@ -29,6 +31,8 @@
 @property (nonatomic, strong) NSString *selectedPhoneNumber;
 
 @property (nonatomic, strong) Firebase *firebase;
+@property (nonatomic, assign) FirebaseHandle *firebaseHandle;
+@property (nonatomic, assign) BOOL doneFetchingFlag;
 @end
 
 NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
@@ -53,8 +57,6 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
     self.recipient = contactTableViewController.contactArray.firstObject;
     
     
-    [self setupMessages];
-    
     /**
      *  Remove camera button since media messages are not yet implemented
      *
@@ -77,6 +79,8 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
     textField.placeholder = @"John Doe";
     textField.keyboardType = UIKeyboardTypeAlphabet;
     textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    
+    [self setupMessages];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -88,39 +92,6 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
 
 - (void)setupMessages
 {
-//    self.firebase = [[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@/%@/%@", kFirebaseURL, self.user.phoneNumber, self.recipient.phoneNumber]];
-    
-    if (self.recipient.name.length) {
-        self.title = self.recipient.name;
-    } else {
-        self.title = [NSString stringWithFormat:@"(%@) %@-%@",
-                      [self.recipient.phoneNumber substringWithRange:NSMakeRange(0, 3)],
-                      [self.recipient.phoneNumber substringWithRange:NSMakeRange(3, 3)],
-                      [self.recipient.phoneNumber substringWithRange:NSMakeRange(6, 4)]];
-    }
-    
-//    NSDictionary *message = @{
-//                              @"sender" : self.user.phoneNumber,
-//                              @"message" : @"Hey there testing",
-//                              @"timestamp" : [NSDate date]
-//                              };
-//    
-//    [[self.firebase childByAutoId] setValue:message];
-//    
-//    message = @{
-//                @"sender" : self.recipient.phoneNumber,
-//                @"message" : @"What's up",
-//                @"timestamp" : [NSDate date]
-//                };
-//    
-//    [[self.firebase childByAutoId] setValue:message];
-    
-    
-    
-    
-    
-    
-    
     CGFloat outgoingDiameter = self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width;
     UIImage *senderImage = [JSQMessagesAvatarFactory avatarWithImage:[UIImage imageNamed:@"kevin"]
                                                             diameter:outgoingDiameter];
@@ -132,26 +103,41 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
     self.avatars = @{ self.user.phoneNumber : senderImage,
                       self.recipient.phoneNumber : recipientImage };
     
-    self.messages = [[NSMutableArray alloc] initWithObjects:
-                     [[JSQMessage alloc] initWithText:@"Welcome to JSQMessages: A messaging UI framework for iOS." sender:self.sender date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"It is simple, elegant, and easy to use. There are super sweet default settings, but you can customize like crazy." sender:self.recipient.phoneNumber date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"It even has data detectors. You can call me tonight. My cell number is 123-456-7890. My website is www.hexedbits.com." sender:self.sender date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"JSQMessagesViewController is nearly an exact replica of the iOS Messages App. And perhaps, better." sender:self.recipient.phoneNumber date:[NSDate date]],
-                     [[JSQMessage alloc] initWithText:@"It is unit-tested, free, and open-source." sender:self.recipient.phoneNumber date:[NSDate date]],
-                     [[JSQMessage alloc] initWithText:@"Oh, and there's sweet documentation." sender:self.sender date:[NSDate date]],
-                     [[JSQMessage alloc] initWithText:@"Welcome to JSQMessages: A messaging UI framework for iOS." sender:self.sender date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"It is simple, elegant, and easy to use. There are super sweet default settings, but you can customize like crazy." sender:self.recipient.phoneNumber date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"It even has data detectors. You can call me tonight. My cell number is 123-456-7890. My website is www.hexedbits.com." sender:self.sender date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"JSQMessagesViewController is nearly an exact replica of the iOS Messages App. And perhaps, better." sender:self.recipient.phoneNumber date:[NSDate date]],
-                     [[JSQMessage alloc] initWithText:@"It is unit-tested, free, and open-source." sender:self.recipient.phoneNumber date:[NSDate date]],
-                     [[JSQMessage alloc] initWithText:@"Oh, and there's sweet documentation." sender:self.sender date:[NSDate date]],
-                     [[JSQMessage alloc] initWithText:@"Welcome to JSQMessages: A messaging UI framework for iOS." sender:self.sender date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"It is simple, elegant, and easy to use. There are super sweet default settings, but you can customize like crazy." sender:self.recipient.phoneNumber date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"It even has data detectors. You can call me tonight. My cell number is 123-456-7890. My website is www.hexedbits.com." sender:self.sender date:[NSDate distantPast]],
-                     [[JSQMessage alloc] initWithText:@"JSQMessagesViewController is nearly an exact replica of the iOS Messages App. And perhaps, better." sender:self.recipient.phoneNumber date:[NSDate date]],
-                     [[JSQMessage alloc] initWithText:@"It is unit-tested, free, and open-source." sender:self.recipient.phoneNumber date:[NSDate date]],
-                     [[JSQMessage alloc] initWithText:@"Oh, and there's sweet documentation." sender:self.sender date:[NSDate date]],
-                     nil];
+    self.firebase = [[Firebase alloc] initWithUrl:kFirebaseURL];
+    self.firebase = [self.firebase childByAppendingPath:self.user.phoneNumber];
+    self.firebase = [self.firebase childByAppendingPath:self.recipient.phoneNumber];
+    
+    if (self.recipient.name.length) {
+        self.title = self.recipient.name;
+    } else {
+        self.title = [NSString stringWithFormat:@"(%@) %@-%@",
+                      [self.recipient.phoneNumber substringWithRange:NSMakeRange(0, 3)],
+                      [self.recipient.phoneNumber substringWithRange:NSMakeRange(3, 3)],
+                      [self.recipient.phoneNumber substringWithRange:NSMakeRange(6, 4)]];
+    }
+    
+    self.messages = [NSMutableArray new];
+    
+    [self.firebase observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+        JSQMessage *message = [[JSQMessage alloc] initWithText:[snapshot.value objectForKey:@"text"]
+                                                        sender:[snapshot.value objectForKey:@"sender"]
+                                                          date:[NSDate date]];
+        [self.messages addObject:message];
+        
+        if (self.doneFetchingFlag) {
+            [self.collectionView reloadData];
+            [self scrollToBottomAnimated:YES];
+        }
+    }];
+    
+    [self.firebase observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        if (snapshot.value != [NSNull null]) {
+            [self.collectionView reloadData];
+            [self scrollToBottomAnimated:YES];
+        }
+        
+        self.doneFetchingFlag = YES;
+    }];
     
     [self.collectionView reloadData];
     [self scrollToBottomAnimated:YES];
@@ -164,19 +150,13 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
                     sender:(NSString *)sender
                       date:(NSDate *)date
 {
-    /**
-     *  Sending a message. Your implementation of this method should do *at least* the following:
-     *
-     *  1. Play sound (optional)
-     *  2. Add new id<JSQMessageData> object to your data source
-     *  3. Call `finishSendingMessage`
-     */
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
     JSQMessage *message = [[JSQMessage alloc] initWithText:text sender:sender date:date];
-    [self.messages addObject:message];
+    [self.firebase.childByAutoId setValue:[message JSONFormat]];
     
     [self finishSendingMessage];
+    [self scrollToBottomAnimated:YES];
 }
 
 - (void)didPressAccessoryButton:(UIButton *)sender
@@ -185,28 +165,16 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
 
     self.showTypingIndicator = !self.showTypingIndicator;
     
-    JSQMessage *copyMessage = [[self.messages lastObject] copy];
-    
-    if (!copyMessage) {
-        return;
-    }
-    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        JSQMessage *message = [[JSQMessage alloc] initWithText:[NSString stringWithFormat:@"I like number %d", arc4random() % 100]
+                                                        sender:self.recipient.phoneNumber
+                                                          date:[NSDate date]];
+
+        [self.firebase.childByAutoId setValue:[message JSONFormat]];
         
-        NSMutableArray *copyAvatars = [[self.avatars allKeys] mutableCopy];
-        [copyAvatars removeObject:self.sender];
-        copyMessage.sender = [copyAvatars objectAtIndex:arc4random_uniform((int)[copyAvatars count])];
-        
-        /**
-         *  This you should do upon receiving a message:
-         *
-         *  1. Play sound (optional)
-         *  2. Add new id<JSQMessageData> object to your data source
-         *  3. Call `finishReceivingMessage`
-         */
         [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
-        [self.messages addObject:copyMessage];
         [self finishReceivingMessage];
+        [self scrollToBottomAnimated:YES];
     });
 }
 
@@ -441,6 +409,11 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
 - (void)didConnectWithPhoneNumber:(NSString *)phoneNumber
 {
     self.selectedPhoneNumber = phoneNumber;
+    
+    if (self.selectedPhoneNumber.length == 11) {
+        self.selectedPhoneNumber = [phoneNumber substringFromIndex:1];
+    }
+    
     [self.addContactAlertView show];
 }
 
@@ -460,7 +433,7 @@ NSString *const kFirebaseURL = @"https://footloose.firebaseio.com/";
         
         [self didPressSendButton:nil
                  withMessageText:@"Take a look at my resume!"
-                          sender:self.user.name
+                          sender:self.sender
                             date:[NSDate date]];
     }
 }

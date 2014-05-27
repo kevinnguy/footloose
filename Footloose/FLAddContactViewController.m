@@ -233,7 +233,7 @@
     }
     
     [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
-    [self.delegate didConnectWithPhoneNumber:self.phoneNumberTextField.text];
+    [self.delegate didConnectWithPhoneNumber:self.phoneNumber];
     
     self.phoneNumberTextField.text = @"";
     self.phoneNumber = @"";
