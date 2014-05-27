@@ -36,6 +36,7 @@
 @property (nonatomic, assign) BOOL doneFetchingFlag;
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+
 @end
 
 NSString *const kFirebaseBaseURL = @"https://footloose.firebaseio.com/";
@@ -85,8 +86,13 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     textField.placeholder = @"John Doe";
     textField.keyboardType = UIKeyboardTypeAlphabet;
     textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    
+
     [self setupMessages];
+}
+
+- (void)showUserContactInfo:(FLUser *)user
+{
+    NSLog(@"asdfasdflkj");
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -98,6 +104,8 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
 
 - (void)setupMessages
 {
+    
+    
     CGFloat outgoingDiameter = self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width;
     UIImage *senderImage = [JSQMessagesAvatarFactory avatarWithImage:[UIImage imageNamed:@"kevin"]
                                                             diameter:outgoingDiameter];
@@ -113,8 +121,16 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     self.firebase = [self.firebase childByAppendingPath:self.user.phoneNumber];
     self.firebase = [self.firebase childByAppendingPath:self.recipient.phoneNumber];
     
+    self.navigationItem.titleView = nil;
     if (self.recipient.name.length) {
         self.title = self.recipient.name;
+        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.navigationController.navigationBar.tintColor};
+        
+        UIButton *titleButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [titleButton setTitle:self.recipient.name forState:UIControlStateNormal];
+        titleButton.titleLabel.font = [UIFont systemFontOfSize:17.0f];
+        [titleButton addTarget:self action:@selector(showUserContactInfo:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.titleView = titleButton;
     } else {
         self.title = [NSString stringWithFormat:@"(%@) %@-%@",
                       [self.recipient.phoneNumber substringWithRange:NSMakeRange(0, 3)],
