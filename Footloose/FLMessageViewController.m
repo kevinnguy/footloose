@@ -151,7 +151,7 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     }
     
     self.messages = [NSMutableArray new];
-    
+
     [self.firebase observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         JSQMessage *message = [[JSQMessage alloc] initWithText:[snapshot.value objectForKey:@"text"]
                                                         sender:[snapshot.value objectForKey:@"sender"]
@@ -165,16 +165,15 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     }];
     
     [self.firebase observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        if (snapshot.value != [NSNull null]) {
-            [self.collectionView reloadData];
-            [self scrollToBottomAnimated:YES];
-        }
-        
+//        if (snapshot.value != [NSNull null]) {
+//            [self.collectionView reloadData];
+//            [self scrollToBottomAnimated:YES];
+//        }
+        NSLog(@"[self.firebase observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot)");
+        [self.collectionView reloadData];
+        [self scrollToBottomAnimated:YES];
         self.doneFetchingFlag = YES;
     }];
-
-    [self.collectionView reloadData];
-    [self scrollToBottomAnimated:YES];
 }
 
 
@@ -192,7 +191,6 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     [self.firebase.childByAutoId setValue:[message JSONFormatWithDateFormatter:self.dateFormatter]];
     
     [self finishSendingMessage];
-    [self scrollToBottomAnimated:YES];
 }
 
 - (void)didPressAccessoryButton:(UIButton *)sender
@@ -210,7 +208,6 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
         
         [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
         [self finishReceivingMessage];
-        [self scrollToBottomAnimated:YES];
     });
     
 //    self.blurView = [[FXBlurView alloc] initWithFrame:self.view.frame];
