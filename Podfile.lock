@@ -19,6 +19,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Firebase (1.1.7)
+  - FXBlurView (1.6.1)
   - iOS-Slide-Menu (1.4.0)
   - JSQMessagesViewController (5.0.3):
     - JSQSystemSoundPlayer
@@ -27,12 +28,14 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.2.4)
   - Firebase (~> 1.1.7)
+  - FXBlurView (~> 1.6.1)
   - iOS-Slide-Menu (~> 1.4.0)
   - JSQMessagesViewController (~> 5.0.1)
 
 SPEC CHECKSUMS:
   AFNetworking: ab63e259fe91eef4519b371ef0a4955af0e73e64
   Firebase: 88d2a0f4c0c8f2d65a732bb2f7ec9b9c6e72876f
+  FXBlurView: 1d01b96076d65027314d1be024c7506c292392aa
   iOS-Slide-Menu: 5b934ec1ad3e1c7d895ec47b7b1223af8ee03666
   JSQMessagesViewController: adaa5b81ffa9a0b8e53d4874b263741dd2bfbb7f
   JSQSystemSoundPlayer: a662f27f4ebac9f867116fc6c3926c19206c5e60

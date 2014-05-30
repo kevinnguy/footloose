@@ -11,12 +11,15 @@
 #import "FLContactTableViewController.h"
 #import "FLAddContactViewController.h"
 
+#import "FLContactInfoScrollView.h"
+
 #import "JSQMessage+Footloose.h"
 
 #import <JSQMessagesViewController/JSQMessages.h>
 #import <SlideNavigationController.h>
 #import <Firebase/Firebase.h>
 #import <AFNetworking/AFNetworking.h>
+#import <FXBlurView/FXBlurView.h>
 
 @interface FLMessageViewController () <SlideNavigationControllerDelegate, FLContactTableViewDelegate, FLAddContactDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) FLUser *user;
@@ -36,6 +39,9 @@
 @property (nonatomic, assign) BOOL doneFetchingFlag;
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+
+@property (nonatomic, strong) FXBlurView *blurView;
+@property (nonatomic, strong) FLContactInfoScrollView *contactInfoScrollView;
 
 @end
 
@@ -88,6 +94,14 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 
     [self setupMessages];
+    
+//    [self setupContactInfoScrollView];
+}
+
+- (void)setupContactInfoScrollView
+{
+    self.contactInfoScrollView = [[FLContactInfoScrollView alloc] initWithFrame:CGRectMake(0, 50, 320, 460)];
+    [self.view addSubview:self.contactInfoScrollView];
 }
 
 - (void)showUserContactInfo:(FLUser *)user
@@ -104,8 +118,6 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
 
 - (void)setupMessages
 {
-    
-    
     CGFloat outgoingDiameter = self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width;
     UIImage *senderImage = [JSQMessagesAvatarFactory avatarWithImage:[UIImage imageNamed:@"kevin"]
                                                             diameter:outgoingDiameter];
@@ -161,8 +173,11 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
         self.doneFetchingFlag = YES;
     }];
 
+    [self.collectionView reloadData];
     [self scrollToBottomAnimated:YES];
 }
+
+
 
 #pragma mark - JSQMessagesViewController method overrides
 
@@ -197,6 +212,17 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
         [self finishReceivingMessage];
         [self scrollToBottomAnimated:YES];
     });
+    
+//    self.blurView = [[FXBlurView alloc] initWithFrame:self.view.frame];
+//    self.blurView.dynamic = NO;
+//    self.blurView.blurRadius = 10;
+//    self.blurView.alpha = 0;
+//    self.blurView.tintColor = [UIColor clearColor];
+//    [[[UIApplication sharedApplication] keyWindow] addSubview:self.blurView];
+//    
+//    [UIView animateWithDuration:0.3f animations:^{
+//        self.blurView.alpha = 1;
+//    }];
 }
 
 
