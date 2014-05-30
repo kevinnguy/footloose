@@ -97,7 +97,7 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
 
 - (void)showUserContactInfo:(FLUser *)user
 {
-    NSLog(@"asdfasdflkj");
+    self.contactInfoView.hidden = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -188,22 +188,20 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
 
 - (void)didPressAccessoryButton:(UIButton *)sender
 {
-//    NSLog(@"Camera pressed!");
-//
-//    self.showTypingIndicator = !self.showTypingIndicator;
-//    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        JSQMessage *message = [[JSQMessage alloc] initWithText:[NSString stringWithFormat:@"I like number %d", arc4random() % 100]
-//                                                        sender:self.recipient.phoneNumber
-//                                                          date:[NSDate date]];
-//
-//        [self.firebase.childByAutoId setValue:[message JSONFormatWithDateFormatter:self.dateFormatter]];
-//        
-//        [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
-//        [self finishReceivingMessage];
-//    });
+    NSLog(@"Camera pressed!");
+
+    self.showTypingIndicator = !self.showTypingIndicator;
     
-    self.contactInfoView.hidden = NO;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        JSQMessage *message = [[JSQMessage alloc] initWithText:[NSString stringWithFormat:@"I like number %d", arc4random() % 100]
+                                                        sender:self.recipient.phoneNumber
+                                                          date:[NSDate date]];
+
+        [self.firebase.childByAutoId setValue:[message JSONFormatWithDateFormatter:self.dateFormatter]];
+        
+        [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
+        [self finishReceivingMessage];
+    });
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView

@@ -50,6 +50,12 @@
             [weakSelf.backgroundImageView removeFromSuperview];
             [weakSelf.contactInfoScrollView removeFromSuperview];
             weakSelf.contactInfoScrollView.hidden = NO;
+            
+            [weakSelf.contactInfoScrollView scrollRectToVisible:CGRectMake(0,
+                                                                           0,
+                                                                           CGRectGetWidth(weakSelf.contactInfoScrollView.frame),
+                                                                           CGRectGetHeight(weakSelf.contactInfoScrollView.frame))
+                                                       animated:NO];
         }];
     }
     else {
@@ -62,7 +68,7 @@
             weakSelf.backgroundImageView.alpha = .85f;
         }];
         
-        [UIView animateWithDuration:0.2f animations:nil completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3f animations:nil completion:^(BOOL finished) {
             [weakSelf.contactInfoScrollView scrollRectToVisible:CGRectMake(0,
                                                                            CGRectGetHeight(weakSelf.contactInfoScrollView.frame),
                                                                            CGRectGetWidth(weakSelf.contactInfoScrollView.frame),

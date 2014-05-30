@@ -14,6 +14,12 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.contentSize = CGSizeMake(CGRectGetWidth(frame), CGRectGetHeight(frame) * 3);
+        self.pagingEnabled = YES;
+        self.showsHorizontalScrollIndicator = NO;
+        self.showsVerticalScrollIndicator = NO;
+        self.backgroundColor = [UIColor clearColor];
+        
         self.cardScrollView = [[NSBundle mainBundle] loadNibNamed:@"FLContactInfoCardScrollView"
                                                             owner:self
                                                           options:nil].firstObject;
@@ -30,26 +36,21 @@
         CGRect cardFrame = self.cardScrollView.frame;
         cardFrame.origin.y = CGRectGetHeight(self.bounds) + yOffset + 20;
         self.cardScrollView.frame = cardFrame;
+        self.cardScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.cardScrollView.frame) * 2, CGRectGetHeight(self.cardScrollView.frame));
+        self.cardScrollView.pagingEnabled = YES;
+        self.cardScrollView.showsHorizontalScrollIndicator = NO;
+        self.cardScrollView.showsVerticalScrollIndicator = NO;
+        self.cardScrollView.layer.cornerRadius = 4;
         
         self.profileView.frame = CGRectMake(0, 0, CGRectGetWidth(self.profileView.frame), CGRectGetHeight(self.profileView.frame));
         
         CGRect experienceViewFrame = self.bounds;
-        experienceViewFrame.origin = CGPointMake(CGRectGetWidth(frame), 0);
+        experienceViewFrame.origin = CGPointMake(CGRectGetWidth(self.cardScrollView.frame), 0);
         self.experienceView.frame = experienceViewFrame;
         
-        self.cardScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.cardScrollView.frame) * 2, CGRectGetHeight(self.cardScrollView.frame));
         [self.cardScrollView addSubview:self.profileView];
         [self.cardScrollView addSubview:self.experienceView];
-        self.cardScrollView.pagingEnabled = YES;
-        self.cardScrollView.showsHorizontalScrollIndicator = NO;
-        self.cardScrollView.showsVerticalScrollIndicator = NO;
-        
-        self.contentSize = CGSizeMake(CGRectGetWidth(frame), CGRectGetHeight(frame) * 3);
         [self addSubview:self.cardScrollView];
-        self.pagingEnabled = YES;
-        self.showsHorizontalScrollIndicator = NO;
-        self.showsVerticalScrollIndicator = NO;
-        self.backgroundColor = [UIColor clearColor];
     }
     
     return self;
