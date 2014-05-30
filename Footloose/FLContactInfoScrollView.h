@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "FLContactInfoCardScrollView.h"
 #import "FLContactInfoProfileView.h"
 #import "FLContactInfoExperienceView.h"
 
-@interface FLContactInfoScrollView : UIScrollView
+@interface FLContactInfoScrollView : UIScrollView 
 
+@property (nonatomic, strong) FLContactInfoCardScrollView *cardScrollView;
 @property (nonatomic, strong) FLContactInfoProfileView *profileView;
 @property (nonatomic, strong) FLContactInfoExperienceView *experienceView;
 

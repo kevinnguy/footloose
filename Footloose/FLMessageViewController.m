@@ -11,7 +11,7 @@
 #import "FLContactTableViewController.h"
 #import "FLAddContactViewController.h"
 
-#import "FLContactInfoScrollView.h"
+#import "FLContactInfoMainView.h"
 
 #import "JSQMessage+Footloose.h"
 
@@ -21,7 +21,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import <FXBlurView/FXBlurView.h>
 
-@interface FLMessageViewController () <SlideNavigationControllerDelegate, FLContactTableViewDelegate, FLAddContactDelegate, UIAlertViewDelegate>
+@interface FLMessageViewController () <SlideNavigationControllerDelegate, FLContactTableViewDelegate, FLAddContactDelegate, UIAlertViewDelegate, UIScrollViewDelegate>
 @property (nonatomic, strong) FLUser *user;
 @property (nonatomic, strong) FLUser *recipient;
 
@@ -40,9 +40,7 @@
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
-@property (nonatomic, strong) FXBlurView *blurView;
-@property (nonatomic, strong) FLContactInfoScrollView *contactInfoScrollView;
-
+@property (nonatomic, strong) FLContactInfoMainView *contactInfoView;
 @end
 
 NSString *const kFirebaseBaseURL = @"https://footloose.firebaseio.com/";
@@ -95,18 +93,18 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
 
     [self setupMessages];
     
-//    [self setupContactInfoScrollView];
-}
-
-- (void)setupContactInfoScrollView
-{
-    self.contactInfoScrollView = [[FLContactInfoScrollView alloc] initWithFrame:CGRectMake(0, 50, 320, 460)];
-    [self.view addSubview:self.contactInfoScrollView];
 }
 
 - (void)showUserContactInfo:(FLUser *)user
 {
     NSLog(@"asdfasdflkj");
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.contactInfoView = [[FLContactInfoMainView alloc] initWithFrame:self.view.frame delegate:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -165,11 +163,6 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     }];
     
     [self.firebase observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-//        if (snapshot.value != [NSNull null]) {
-//            [self.collectionView reloadData];
-//            [self scrollToBottomAnimated:YES];
-//        }
-        NSLog(@"[self.firebase observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot)");
         [self.collectionView reloadData];
         [self scrollToBottomAnimated:YES];
         self.doneFetchingFlag = YES;
@@ -195,33 +188,35 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
 
 - (void)didPressAccessoryButton:(UIButton *)sender
 {
-    NSLog(@"Camera pressed!");
-
-    self.showTypingIndicator = !self.showTypingIndicator;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        JSQMessage *message = [[JSQMessage alloc] initWithText:[NSString stringWithFormat:@"I like number %d", arc4random() % 100]
-                                                        sender:self.recipient.phoneNumber
-                                                          date:[NSDate date]];
-
-        [self.firebase.childByAutoId setValue:[message JSONFormatWithDateFormatter:self.dateFormatter]];
-        
-        [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
-        [self finishReceivingMessage];
-    });
-    
-//    self.blurView = [[FXBlurView alloc] initWithFrame:self.view.frame];
-//    self.blurView.dynamic = NO;
-//    self.blurView.blurRadius = 10;
-//    self.blurView.alpha = 0;
-//    self.blurView.tintColor = [UIColor clearColor];
-//    [[[UIApplication sharedApplication] keyWindow] addSubview:self.blurView];
+//    NSLog(@"Camera pressed!");
+//
+//    self.showTypingIndicator = !self.showTypingIndicator;
 //    
-//    [UIView animateWithDuration:0.3f animations:^{
-//        self.blurView.alpha = 1;
-//    }];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        JSQMessage *message = [[JSQMessage alloc] initWithText:[NSString stringWithFormat:@"I like number %d", arc4random() % 100]
+//                                                        sender:self.recipient.phoneNumber
+//                                                          date:[NSDate date]];
+//
+//        [self.firebase.childByAutoId setValue:[message JSONFormatWithDateFormatter:self.dateFormatter]];
+//        
+//        [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
+//        [self finishReceivingMessage];
+//    });
+    
+    self.contactInfoView.hidden = NO;
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (scrollView == self.contactInfoView.contactInfoScrollView) {
+        float fractionalPage = scrollView.contentOffset.y / CGRectGetHeight(scrollView.frame);
+        NSInteger page = lround(fractionalPage);
+        
+        if (page == 0 || page == 2) {
+            self.contactInfoView.hidden = YES;
+        }
+    }
+}
 
 
 #pragma mark - JSQMessages CollectionView DataSource
