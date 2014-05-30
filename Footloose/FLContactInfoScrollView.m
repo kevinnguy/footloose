@@ -20,19 +20,22 @@
         self.showsVerticalScrollIndicator = NO;
         self.backgroundColor = [UIColor clearColor];
         
-        self.cardScrollView = [[NSBundle mainBundle] loadNibNamed:@"FLContactInfoCardScrollView"
-                                                            owner:self
-                                                          options:nil].firstObject;
+        self.cardScrollView = [[FLContactInfoCardScrollView alloc] initWithFrame:CGRectMake(0,
+                                                                                            0,
+                                                                                            CGRectGetWidth(frame),
+                                                                                            460)];
+        self.profileView = [[FLContactInfoProfileView alloc] initWithFrame:CGRectMake(0,
+                                                                                      0,
+                                                                                      CGRectGetWidth(self.cardScrollView.frame),
+                                                                                      CGRectGetHeight(self.cardScrollView.frame))];
         
-        self.profileView = [[NSBundle mainBundle] loadNibNamed:@"FLContactInfoProfileView"
-                                                         owner:self
-                                                       options:nil].firstObject;
+        self.experienceView = [[FLContactInfoExperienceView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.cardScrollView.frame),
+                                                                                            0,
+                                                                                            CGRectGetWidth(self.cardScrollView.frame),
+                                                                                            CGRectGetHeight(self.cardScrollView.frame))];
         
-        self.experienceView = [[NSBundle mainBundle] loadNibNamed:@"FLContactInfoExperienceView"
-                                                            owner:self
-                                                          options:nil].firstObject;
         
-        int yOffset = (CGRectGetHeight(self.bounds) - CGRectGetHeight(self.cardScrollView.bounds) - 20) / 2;
+        int yOffset = (CGRectGetHeight(frame) - CGRectGetHeight(self.cardScrollView.frame) - 20) / 2;
         CGRect cardFrame = self.cardScrollView.frame;
         cardFrame.origin.y = CGRectGetHeight(self.bounds) + yOffset + 20;
         self.cardScrollView.frame = cardFrame;
@@ -41,12 +44,6 @@
         self.cardScrollView.showsHorizontalScrollIndicator = NO;
         self.cardScrollView.showsVerticalScrollIndicator = NO;
         self.cardScrollView.layer.cornerRadius = 4;
-        
-        self.profileView.frame = CGRectMake(0, 0, CGRectGetWidth(self.profileView.frame), CGRectGetHeight(self.profileView.frame));
-        
-        CGRect experienceViewFrame = self.bounds;
-        experienceViewFrame.origin = CGPointMake(CGRectGetWidth(self.cardScrollView.frame), 0);
-        self.experienceView.frame = experienceViewFrame;
         
         [self.cardScrollView addSubview:self.profileView];
         [self.cardScrollView addSubview:self.experienceView];

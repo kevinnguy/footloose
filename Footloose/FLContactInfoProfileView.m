@@ -14,7 +14,14 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        FLContactInfoProfileView *view = [[NSBundle mainBundle] loadNibNamed:@"FLContactInfoProfileView"
+                                                     owner:self
+                                                   options:nil].firstObject;
+        
+        view.profileImageView.layer.cornerRadius = CGRectGetWidth(view.profileImageView.frame) / 2;
+        view.profileImageView.layer.masksToBounds = YES;
+        
+        [self addSubview:view];
     }
     return self;
 }

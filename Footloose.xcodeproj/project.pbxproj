@@ -227,22 +227,12 @@
 		0A3BABC319180CB800B1B2DF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A5340E319384F3700086FA9 /* Contact View */,
 				0A313C4519281BDB006CC8E7 /* FLContactTableViewCell.h */,
 				0A313C4619281BDB006CC8E7 /* FLContactTableViewCell.m */,
 				0A313C4819281BF6006CC8E7 /* FLContactTableViewCell.xib */,
 				0A5340E0193842CB00086FA9 /* FLContactInfoMainView.h */,
 				0A5340E1193842CB00086FA9 /* FLContactInfoMainView.m */,
-				0AB149EC193564CC005C6B0B /* FLContactInfoScrollView.h */,
-				0AB149ED193564CC005C6B0B /* FLContactInfoScrollView.m */,
-				0A5340DB19383C4700086FA9 /* FLContactInfoCardScrollView.xib */,
-				0A5340DD19383C6800086FA9 /* FLContactInfoCardScrollView.h */,
-				0A5340DE19383C6800086FA9 /* FLContactInfoCardScrollView.m */,
-				0AB149F219356531005C6B0B /* FLContactInfoProfileView.xib */,
-				0AB149EF19356520005C6B0B /* FLContactInfoProfileView.h */,
-				0AB149F019356520005C6B0B /* FLContactInfoProfileView.m */,
-				0AB149F4193565BF005C6B0B /* FLContactInfoExperienceView.xib */,
-				0AB149F619356615005C6B0B /* FLContactInfoExperienceView.h */,
-				0AB149F719356615005C6B0B /* FLContactInfoExperienceView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -261,6 +251,24 @@
 			children = (
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		0A5340E319384F3700086FA9 /* Contact View */ = {
+			isa = PBXGroup;
+			children = (
+				0AB149EC193564CC005C6B0B /* FLContactInfoScrollView.h */,
+				0AB149ED193564CC005C6B0B /* FLContactInfoScrollView.m */,
+				0A5340DB19383C4700086FA9 /* FLContactInfoCardScrollView.xib */,
+				0A5340DD19383C6800086FA9 /* FLContactInfoCardScrollView.h */,
+				0A5340DE19383C6800086FA9 /* FLContactInfoCardScrollView.m */,
+				0AB149F219356531005C6B0B /* FLContactInfoProfileView.xib */,
+				0AB149EF19356520005C6B0B /* FLContactInfoProfileView.h */,
+				0AB149F019356520005C6B0B /* FLContactInfoProfileView.m */,
+				0AB149F4193565BF005C6B0B /* FLContactInfoExperienceView.xib */,
+				0AB149F619356615005C6B0B /* FLContactInfoExperienceView.h */,
+				0AB149F719356615005C6B0B /* FLContactInfoExperienceView.m */,
+			);
+			name = "Contact View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

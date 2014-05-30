@@ -15,6 +15,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        UIView *view = [[NSBundle mainBundle] loadNibNamed:@"FLContactInfoCardScrollView"
+                                      owner:self
+                                    options:nil].firstObject;
+        [self addSubview:view];
     }
     return self;
 }

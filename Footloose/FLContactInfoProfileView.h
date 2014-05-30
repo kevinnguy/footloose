@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface FLContactInfoProfileView : UIView
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 
 @end
