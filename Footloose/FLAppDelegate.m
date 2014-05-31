@@ -30,6 +30,7 @@
 		[SlideNavigationController sharedInstance].menuRevealAnimator = [[SlideNavigationContorllerAnimatorSlide alloc] init];
 	}];
 
+    [self setupAppearance];
     
     return YES;
 }
@@ -59,6 +60,11 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)setupAppearance
+{
+    [[UIBarButtonItem appearance] setTintColor:[UIColor footloosePrimaryColor]];
 }
 
 @end

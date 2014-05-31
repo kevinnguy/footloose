@@ -11,6 +11,7 @@
 #import "FLContactTableViewController.h"
 #import "FLAddContactViewController.h"
 
+#import "FLTitleView.h"
 #import "FLContactInfoMainView.h"
 
 #import "JSQMessage+Footloose.h"
@@ -40,6 +41,7 @@
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
+@property (nonatomic, strong) FLTitleView *titleView;
 @property (nonatomic, strong) FLContactInfoMainView *contactInfoView;
 @end
 
@@ -64,6 +66,9 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     FLAddContactViewController *addContactViewController = (FLAddContactViewController *)[SlideNavigationController sharedInstance].rightMenu;
     addContactViewController.delegate = self;
     
+    [SlideNavigationController sharedInstance].leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"contact"] style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [SlideNavigationController sharedInstance].rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
+    
     self.recipient = contactTableViewController.contactArray.firstObject;
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
@@ -81,7 +86,7 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
                                     outgoingMessageBubbleImageViewWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
     
     self.incomingBubbleImageView = [JSQMessagesBubbleImageFactory
-                                    incomingMessageBubbleImageViewWithColor:[UIColor jsq_messageBubbleGreenColor]];
+                                    incomingMessageBubbleImageViewWithColor:[UIColor footlooseLightPrimaryColor]];
     
     self.addContactAlertView = [[UIAlertView alloc] initWithTitle:@"Add name to this contact?" message:nil delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Okay", nil];
     self.addContactAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
@@ -95,7 +100,7 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     
 }
 
-- (void)showUserContactInfo:(FLUser *)user
+- (void)titleButtonPressed:(id)sender
 {
     self.contactInfoView.hidden = NO;
 }
@@ -117,7 +122,7 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
 - (void)setupMessages
 {
     CGFloat outgoingDiameter = self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width;
-    UIImage *senderImage = [JSQMessagesAvatarFactory avatarWithImage:[UIImage imageNamed:@"kevin"]
+    UIImage *senderImage = [JSQMessagesAvatarFactory avatarWithImage:self.user.profileImage
                                                             diameter:outgoingDiameter];
     
     CGFloat incomingDiameter = self.collectionView.collectionViewLayout.incomingAvatarViewSize.width;
@@ -134,13 +139,6 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     self.navigationItem.titleView = nil;
     if (self.recipient.name.length) {
         self.title = self.recipient.name;
-        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : self.navigationController.navigationBar.tintColor};
-        
-        UIButton *titleButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [titleButton setTitle:self.recipient.name forState:UIControlStateNormal];
-        titleButton.titleLabel.font = [UIFont systemFontOfSize:17.0f];
-        [titleButton addTarget:self action:@selector(showUserContactInfo:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.titleView = titleButton;
     } else {
         self.title = [NSString stringWithFormat:@"(%@) %@-%@",
                       [self.recipient.phoneNumber substringWithRange:NSMakeRange(0, 3)],
@@ -148,18 +146,35 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
                       [self.recipient.phoneNumber substringWithRange:NSMakeRange(6, 4)]];
     }
     
+    self.titleView = [[FLTitleView alloc] initWithFrame:CGRectZero
+                                                  title:self.title
+                                           profileImage:self.recipient.profileImage
+                                                 target:self
+                                               selector:@selector(titleButtonPressed:)];
+    
+    self.navigationItem.titleView = self.titleView;
+
     self.messages = [NSMutableArray new];
 
     [self.firebase observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         JSQMessage *message = [[JSQMessage alloc] initWithText:[snapshot.value objectForKey:@"text"]
                                                         sender:[snapshot.value objectForKey:@"sender"]
                                                           date:[self.dateFormatter dateFromString:[snapshot.value objectForKey:@"timestamp"]]];
-        [self.messages addObject:message];
         
-        if (self.doneFetchingFlag) {
-            [self.collectionView reloadData];
-            [self scrollToBottomAnimated:YES];
+        if ([self.recipient.phoneNumber isEqualToString:message.sender]) {
+            [self.messages addObject:message];
+
+            if (self.doneFetchingFlag) {
+                [self.collectionView reloadData];
+                [self scrollToBottomAnimated:YES];
+            }
         }
+        else {
+            // Got a message from someone else
+//            [[SlideNavigationController sharedInstance] bounceMenu:MenuLeft withCompletion:nil];
+        }
+        
+
     }];
     
     [self.firebase observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
@@ -249,31 +264,13 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
 
 - (UIImageView *)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageViewForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    /**
-     *  Return `nil` here if you do not want avatars.
-     *  If you do return `nil`, be sure to do the following in `viewDidLoad`:
-     *
-     *  self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
-     *  self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
-     *
-     *  It is possible to have only outgoing avatars or only incoming avatars, too.
-     */
+//    JSQMessage *message = [self.messages objectAtIndex:indexPath.item];
+//    
+//    UIImage *avatarImage = [self.avatars objectForKey:message.sender];
+//    return [[UIImageView alloc] initWithImage:avatarImage];
     
-    /**
-     *  Reuse created avatar images, but create new imageView to add to each cell
-     *  Otherwise, each cell would be referencing the same imageView and avatars would disappear from cells
-     *
-     *  Note: these images will be sized according to these values:
-     *
-     *  self.collectionView.collectionViewLayout.incomingAvatarViewSize
-     *  self.collectionView.collectionViewLayout.outgoingAvatarViewSize
-     *
-     *  Override the defaults in `viewDidLoad`
-     */
-    JSQMessage *message = [self.messages objectAtIndex:indexPath.item];
-    
-    UIImage *avatarImage = [self.avatars objectForKey:message.sender];
-    return [[UIImageView alloc] initWithImage:avatarImage];
+    int widthPadding = 4;
+    return [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, widthPadding, 1)];
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath

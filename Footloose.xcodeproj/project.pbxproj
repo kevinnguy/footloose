@@ -31,6 +31,8 @@
 		0A5340DC19383C4700086FA9 /* FLContactInfoCardScrollView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5340DB19383C4700086FA9 /* FLContactInfoCardScrollView.xib */; };
 		0A5340DF19383C6800086FA9 /* FLContactInfoCardScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5340DE19383C6800086FA9 /* FLContactInfoCardScrollView.m */; };
 		0A5340E2193842CB00086FA9 /* FLContactInfoMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5340E1193842CB00086FA9 /* FLContactInfoMainView.m */; };
+		0A80A90A193A60FC00A0E2E7 /* FLTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A80A909193A60FC00A0E2E7 /* FLTitleView.m */; };
+		0A80A90D193A6C4800A0E2E7 /* UIColor+Footloose.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A80A90C193A6C4800A0E2E7 /* UIColor+Footloose.m */; };
 		0AB149EE193564CC005C6B0B /* FLContactInfoScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB149ED193564CC005C6B0B /* FLContactInfoScrollView.m */; };
 		0AB149F119356520005C6B0B /* FLContactInfoProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB149F019356520005C6B0B /* FLContactInfoProfileView.m */; };
 		0AB149F319356531005C6B0B /* FLContactInfoProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AB149F219356531005C6B0B /* FLContactInfoProfileView.xib */; };
@@ -86,6 +88,10 @@
 		0A5340DE19383C6800086FA9 /* FLContactInfoCardScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLContactInfoCardScrollView.m; sourceTree = "<group>"; };
 		0A5340E0193842CB00086FA9 /* FLContactInfoMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLContactInfoMainView.h; sourceTree = "<group>"; };
 		0A5340E1193842CB00086FA9 /* FLContactInfoMainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLContactInfoMainView.m; sourceTree = "<group>"; };
+		0A80A908193A60FC00A0E2E7 /* FLTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLTitleView.h; sourceTree = "<group>"; };
+		0A80A909193A60FC00A0E2E7 /* FLTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLTitleView.m; sourceTree = "<group>"; };
+		0A80A90B193A6C4800A0E2E7 /* UIColor+Footloose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Footloose.h"; sourceTree = "<group>"; };
+		0A80A90C193A6C4800A0E2E7 /* UIColor+Footloose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Footloose.m"; sourceTree = "<group>"; };
 		0AB149EC193564CC005C6B0B /* FLContactInfoScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLContactInfoScrollView.h; sourceTree = "<group>"; };
 		0AB149ED193564CC005C6B0B /* FLContactInfoScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLContactInfoScrollView.m; sourceTree = "<group>"; };
 		0AB149EF19356520005C6B0B /* FLContactInfoProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLContactInfoProfileView.h; sourceTree = "<group>"; };
@@ -218,8 +224,6 @@
 				0A3BAB9B191806AB00B1B2DF /* Main_iPad.storyboard */,
 				0A3BABA1191806AB00B1B2DF /* Images.xcassets */,
 				0A3BAB8D191806AB00B1B2DF /* Supporting Files */,
-				0A46704819340C12009590F0 /* JSQMessage+Footloose.h */,
-				0A46704919340C12009590F0 /* JSQMessage+Footloose.m */,
 			);
 			name = App;
 			sourceTree = "<group>";
@@ -233,6 +237,8 @@
 				0A313C4819281BF6006CC8E7 /* FLContactTableViewCell.xib */,
 				0A5340E0193842CB00086FA9 /* FLContactInfoMainView.h */,
 				0A5340E1193842CB00086FA9 /* FLContactInfoMainView.m */,
+				0A80A908193A60FC00A0E2E7 /* FLTitleView.h */,
+				0A80A909193A60FC00A0E2E7 /* FLTitleView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -249,6 +255,10 @@
 		0A46704719340BF8009590F0 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				0A80A90B193A6C4800A0E2E7 /* UIColor+Footloose.h */,
+				0A80A90C193A6C4800A0E2E7 /* UIColor+Footloose.m */,
+				0A46704819340C12009590F0 /* JSQMessage+Footloose.h */,
+				0A46704919340C12009590F0 /* JSQMessage+Footloose.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -411,6 +421,7 @@
 			files = (
 				0A3BAB97191806AB00B1B2DF /* FLAppDelegate.m in Sources */,
 				0AB149F119356520005C6B0B /* FLContactInfoProfileView.m in Sources */,
+				0A80A90D193A6C4800A0E2E7 /* UIColor+Footloose.m in Sources */,
 				0A46704A19340C12009590F0 /* JSQMessage+Footloose.m in Sources */,
 				0AB149EE193564CC005C6B0B /* FLContactInfoScrollView.m in Sources */,
 				0A313C411927FEBB006CC8E7 /* FLMessageViewController.m in Sources */,
@@ -422,6 +433,7 @@
 				0A313C4719281BDB006CC8E7 /* FLContactTableViewCell.m in Sources */,
 				0A5340DF19383C6800086FA9 /* FLContactInfoCardScrollView.m in Sources */,
 				0A3BAB93191806AB00B1B2DF /* main.m in Sources */,
+				0A80A90A193A60FC00A0E2E7 /* FLTitleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,7 +15,7 @@
                     <view key="view" contentMode="scaleToFill" id="WmX-WG-J0D">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.61901873350143433" green="0.2778455913066864" blue="0.77709531784057617" alpha="0.93986002604166663" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="nPn-JD-p3U"/>
                 </viewController>
