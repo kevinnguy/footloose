@@ -10,7 +10,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="demo_avatar_jobs" translatesAutoresizingMaskIntoConstraints="NO" id="jqt-4f-2Te" customClass="FLRoundImageView">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="kevin" translatesAutoresizingMaskIntoConstraints="NO" id="jqt-4f-2Te" customClass="FLRoundImageView">
                     <rect key="frame" x="96" y="33" width="128" height="128"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
@@ -66,8 +66,8 @@
         </view>
     </objects>
     <resources>
-        <image name="demo_avatar_jobs" width="128" height="128"/>
         <image name="email" width="35" height="35"/>
+        <image name="kevin" width="125" height="125"/>
         <image name="phone" width="40" height="40"/>
     </resources>
 </document>

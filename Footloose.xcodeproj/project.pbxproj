@@ -35,6 +35,8 @@
 		0A80A910193A7CAC00A0E2E7 /* FLContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A80A90F193A7CAC00A0E2E7 /* FLContactViewController.m */; };
 		0A80A913193AAC3200A0E2E7 /* FLRoundImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A80A912193AAC3200A0E2E7 /* FLRoundImageView.m */; };
 		0A80A916193AD28B00A0E2E7 /* FLRoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A80A915193AD28B00A0E2E7 /* FLRoundButton.m */; };
+		0A80A918193B0AEB00A0E2E7 /* FLContactInfoSnippetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A80A917193B0AEB00A0E2E7 /* FLContactInfoSnippetView.xib */; };
+		0A80A91B193B0AFE00A0E2E7 /* FLContactInfoSnippetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A80A91A193B0AFE00A0E2E7 /* FLContactInfoSnippetView.m */; };
 		0AB149EE193564CC005C6B0B /* FLContactInfoScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB149ED193564CC005C6B0B /* FLContactInfoScrollView.m */; };
 		0AB149F119356520005C6B0B /* FLContactInfoProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB149F019356520005C6B0B /* FLContactInfoProfileView.m */; };
 		0AB149F319356531005C6B0B /* FLContactInfoProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AB149F219356531005C6B0B /* FLContactInfoProfileView.xib */; };
@@ -98,6 +100,9 @@
 		0A80A912193AAC3200A0E2E7 /* FLRoundImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLRoundImageView.m; sourceTree = "<group>"; };
 		0A80A914193AD28B00A0E2E7 /* FLRoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLRoundButton.h; sourceTree = "<group>"; };
 		0A80A915193AD28B00A0E2E7 /* FLRoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLRoundButton.m; sourceTree = "<group>"; };
+		0A80A917193B0AEB00A0E2E7 /* FLContactInfoSnippetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FLContactInfoSnippetView.xib; sourceTree = "<group>"; };
+		0A80A919193B0AFE00A0E2E7 /* FLContactInfoSnippetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLContactInfoSnippetView.h; sourceTree = "<group>"; };
+		0A80A91A193B0AFE00A0E2E7 /* FLContactInfoSnippetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLContactInfoSnippetView.m; sourceTree = "<group>"; };
 		0AB149EC193564CC005C6B0B /* FLContactInfoScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLContactInfoScrollView.h; sourceTree = "<group>"; };
 		0AB149ED193564CC005C6B0B /* FLContactInfoScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLContactInfoScrollView.m; sourceTree = "<group>"; };
 		0AB149EF19356520005C6B0B /* FLContactInfoProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLContactInfoProfileView.h; sourceTree = "<group>"; };
@@ -284,6 +289,9 @@
 				0AB149F219356531005C6B0B /* FLContactInfoProfileView.xib */,
 				0AB149EF19356520005C6B0B /* FLContactInfoProfileView.h */,
 				0AB149F019356520005C6B0B /* FLContactInfoProfileView.m */,
+				0A80A917193B0AEB00A0E2E7 /* FLContactInfoSnippetView.xib */,
+				0A80A919193B0AFE00A0E2E7 /* FLContactInfoSnippetView.h */,
+				0A80A91A193B0AFE00A0E2E7 /* FLContactInfoSnippetView.m */,
 				0AB149F4193565BF005C6B0B /* FLContactInfoExperienceView.xib */,
 				0AB149F619356615005C6B0B /* FLContactInfoExperienceView.h */,
 				0AB149F719356615005C6B0B /* FLContactInfoExperienceView.m */,
@@ -375,6 +383,7 @@
 				0A3BAB9D191806AB00B1B2DF /* Main_iPad.storyboard in Resources */,
 				0A3BABA2191806AB00B1B2DF /* Images.xcassets in Resources */,
 				0AB149F5193565BF005C6B0B /* FLContactInfoExperienceView.xib in Resources */,
+				0A80A918193B0AEB00A0E2E7 /* FLContactInfoSnippetView.xib in Resources */,
 				0A3BAB9A191806AB00B1B2DF /* Main_iPhone.storyboard in Resources */,
 				0A5340DC19383C4700086FA9 /* FLContactInfoCardScrollView.xib in Resources */,
 				0A3BAB91191806AB00B1B2DF /* InfoPlist.strings in Resources */,
@@ -444,6 +453,7 @@
 				0A4670461933C145009590F0 /* FLUser.m in Sources */,
 				0A313C4719281BDB006CC8E7 /* FLContactTableViewCell.m in Sources */,
 				0A5340DF19383C6800086FA9 /* FLContactInfoCardScrollView.m in Sources */,
+				0A80A91B193B0AFE00A0E2E7 /* FLContactInfoSnippetView.m in Sources */,
 				0A3BAB93191806AB00B1B2DF /* main.m in Sources */,
 				0A80A90A193A60FC00A0E2E7 /* FLTitleView.m in Sources */,
 			);
