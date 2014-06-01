@@ -226,6 +226,11 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
             self.contactInfoView.hidden = YES;
         }
     }
+    else if (scrollView == self.contactInfoView.contactInfoScrollView.cardScrollView) {
+        float fractionalPage = scrollView.contentOffset.x / CGRectGetHeight(scrollView.frame);
+        NSInteger page = lround(fractionalPage);
+        self.contactInfoView.contactInfoScrollView.pageControl.currentPage = page;
+    }
 }
 
 

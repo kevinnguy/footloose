@@ -16,4 +16,8 @@
 @property (weak, nonatomic) IBOutlet FLRoundButton *phoneButton;
 @property (weak, nonatomic) IBOutlet FLRoundButton *emailButton;
 
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *jobLabel;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+
 @end

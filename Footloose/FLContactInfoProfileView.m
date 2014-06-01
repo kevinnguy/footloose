@@ -17,8 +17,11 @@
         FLContactInfoProfileView *view = [[NSBundle mainBundle] loadNibNamed:@"FLContactInfoProfileView"
                                                      owner:self
                                                    options:nil].firstObject;
-        
 
+        view.nameLabel.textColor = [UIColor footloosePrimaryColor];
+        view.jobLabel.textColor = [UIColor footlooseLightPrimaryColor];
+        view.locationLabel.textColor = [UIColor footlooseLightPrimaryColor];
+        
         [self addSubview:view];
     }
     return self;

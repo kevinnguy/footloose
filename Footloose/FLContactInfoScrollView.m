@@ -45,9 +45,20 @@
         self.cardScrollView.showsVerticalScrollIndicator = NO;
         self.cardScrollView.layer.cornerRadius = 4;
         
+        self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(141,
+                                                                           cardFrame.origin.y + 416,
+                                                                           39,
+                                                                           37)];
+        self.pageControl.numberOfPages = 2;
+        self.pageControl.currentPage = 0;
+        self.pageControl.currentPageIndicatorTintColor = [UIColor footloosePrimaryColor];
+        self.pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+        
+        
         [self.cardScrollView addSubview:self.profileView];
         [self.cardScrollView addSubview:self.experienceView];
         [self addSubview:self.cardScrollView];
+        [self addSubview:self.pageControl];
     }
     
     return self;
