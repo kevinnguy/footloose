@@ -83,7 +83,8 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
      *  Or, you can set a custom `leftBarButtonItem` and a custom `rightBarButtonItem`
      */
     
-
+    self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeMake(5, 0);
+    self.collectionView.collectionViewLayout.outgoingAvatarViewSize = self.collectionView.collectionViewLayout.incomingAvatarViewSize;
     self.outgoingBubbleImageView = [JSQMessagesBubbleImageFactory
                                     outgoingMessageBubbleImageViewWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
     
@@ -123,17 +124,6 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
 
 - (void)setupMessages
 {
-    CGFloat outgoingDiameter = self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width;
-    UIImage *senderImage = [JSQMessagesAvatarFactory avatarWithImage:self.user.profileImage
-                                                            diameter:outgoingDiameter];
-    
-    CGFloat incomingDiameter = self.collectionView.collectionViewLayout.incomingAvatarViewSize.width;
-    UIImage *recipientImage = [JSQMessagesAvatarFactory avatarWithImage:self.recipient.profileImage
-                                                               diameter:incomingDiameter];
-    
-    self.avatars = @{ self.user.phoneNumber : senderImage,
-                      self.recipient.phoneNumber : recipientImage };
-    
     self.firebase = [[Firebase alloc] initWithUrl:kFirebaseBaseURL];
     self.firebase = [self.firebase childByAppendingPath:self.user.phoneNumber];
     self.firebase = [self.firebase childByAppendingPath:self.recipient.phoneNumber];
@@ -266,13 +256,7 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
 
 - (UIImageView *)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageViewForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    JSQMessage *message = [self.messages objectAtIndex:indexPath.item];
-//    
-//    UIImage *avatarImage = [self.avatars objectForKey:message.sender];
-//    return [[UIImageView alloc] initWithImage:avatarImage];
-    
-    int widthPadding = 4;
-    return [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, widthPadding, 1)];
+    return [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.collectionViewLayout.outgoingAvatarViewSize.width, 0)];
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath
