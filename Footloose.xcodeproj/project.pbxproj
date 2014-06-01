@@ -34,6 +34,7 @@
 		0A80A90D193A6C4800A0E2E7 /* UIColor+Footloose.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A80A90C193A6C4800A0E2E7 /* UIColor+Footloose.m */; };
 		0A80A910193A7CAC00A0E2E7 /* FLContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A80A90F193A7CAC00A0E2E7 /* FLContactViewController.m */; };
 		0A80A913193AAC3200A0E2E7 /* FLRoundImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A80A912193AAC3200A0E2E7 /* FLRoundImageView.m */; };
+		0A80A916193AD28B00A0E2E7 /* FLNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A80A915193AD28B00A0E2E7 /* FLNumberButton.m */; };
 		0AB149EE193564CC005C6B0B /* FLContactInfoScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB149ED193564CC005C6B0B /* FLContactInfoScrollView.m */; };
 		0AB149F119356520005C6B0B /* FLContactInfoProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB149F019356520005C6B0B /* FLContactInfoProfileView.m */; };
 		0AB149F319356531005C6B0B /* FLContactInfoProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AB149F219356531005C6B0B /* FLContactInfoProfileView.xib */; };
@@ -95,6 +96,8 @@
 		0A80A90F193A7CAC00A0E2E7 /* FLContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLContactViewController.m; sourceTree = "<group>"; };
 		0A80A911193AAC3200A0E2E7 /* FLRoundImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLRoundImageView.h; sourceTree = "<group>"; };
 		0A80A912193AAC3200A0E2E7 /* FLRoundImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLRoundImageView.m; sourceTree = "<group>"; };
+		0A80A914193AD28B00A0E2E7 /* FLNumberButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLNumberButton.h; sourceTree = "<group>"; };
+		0A80A915193AD28B00A0E2E7 /* FLNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLNumberButton.m; sourceTree = "<group>"; };
 		0AB149EC193564CC005C6B0B /* FLContactInfoScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLContactInfoScrollView.h; sourceTree = "<group>"; };
 		0AB149ED193564CC005C6B0B /* FLContactInfoScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLContactInfoScrollView.m; sourceTree = "<group>"; };
 		0AB149EF19356520005C6B0B /* FLContactInfoProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLContactInfoProfileView.h; sourceTree = "<group>"; };
@@ -244,6 +247,8 @@
 				0A80A909193A60FC00A0E2E7 /* FLTitleView.m */,
 				0A80A911193AAC3200A0E2E7 /* FLRoundImageView.h */,
 				0A80A912193AAC3200A0E2E7 /* FLRoundImageView.m */,
+				0A80A914193AD28B00A0E2E7 /* FLNumberButton.h */,
+				0A80A915193AD28B00A0E2E7 /* FLNumberButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -432,6 +437,7 @@
 				0A46704A19340C12009590F0 /* JSQMessage+Footloose.m in Sources */,
 				0AB149EE193564CC005C6B0B /* FLContactInfoScrollView.m in Sources */,
 				0A313C411927FEBB006CC8E7 /* FLMessageViewController.m in Sources */,
+				0A80A916193AD28B00A0E2E7 /* FLNumberButton.m in Sources */,
 				0A5340E2193842CB00086FA9 /* FLContactInfoMainView.m in Sources */,
 				0AB149F819356615005C6B0B /* FLContactInfoExperienceView.m in Sources */,
 				0A3E2ACC1928A49B00F9EDDF /* FLAddContactViewController.m in Sources */,

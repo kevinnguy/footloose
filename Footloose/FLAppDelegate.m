@@ -18,6 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self setupAppearance];
+
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle: nil];
     FLContactViewController *leftViewController = (FLContactViewController *)[mainStoryboard instantiateViewControllerWithIdentifier: @"FLContactViewController"];
     FLAddContactViewController *rightViewController = (FLAddContactViewController *)[mainStoryboard instantiateViewControllerWithIdentifier: @"FLAddContactViewController"];
@@ -30,7 +32,6 @@
 		[SlideNavigationController sharedInstance].menuRevealAnimator = [[SlideNavigationContorllerAnimatorSlide alloc] init];
 	}];
 
-    [self setupAppearance];
     
     return YES;
 }
@@ -64,7 +65,7 @@
 
 - (void)setupAppearance
 {
-    [[UIBarButtonItem appearance] setTintColor:[UIColor footloosePrimaryColor]];
+
 }
 
 @end

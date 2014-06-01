@@ -69,7 +69,10 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     addContactViewController.delegate = self;
     
     [SlideNavigationController sharedInstance].leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"contact"] style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [SlideNavigationController sharedInstance].leftBarButtonItem.tintColor = [UIColor footloosePrimaryColor];
+
     [SlideNavigationController sharedInstance].rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
+    [SlideNavigationController sharedInstance].rightBarButtonItem.tintColor = [UIColor footloosePrimaryColor];
     
     self.recipient = contactTableViewController.contactArray.firstObject;
     

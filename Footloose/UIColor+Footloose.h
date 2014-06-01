@@ -13,5 +13,5 @@
 + (UIColor *)footloosePrimaryColor;
 + (UIColor *)footlooseLightPrimaryColor;
 
-
++ (UIColor *)defaultNavigationBarColor;
 @end

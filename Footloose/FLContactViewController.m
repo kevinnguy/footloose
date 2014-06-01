@@ -62,8 +62,15 @@ static NSString * const kCellIdentifier = @"FLContactTableViewCellIdentifier";
     FLContactTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
     self.tableView.rowHeight = CGRectGetHeight(cell.frame);
     
+    self.topSegmentedControl.tintColor = [UIColor footlooseLightPrimaryColor];
+    
     self.userNameLabel.text = @"Kevin Nguy";
     self.userProfileView.image = [UIImage imageNamed:@"kevin"];
+    
+    self.topView.backgroundColor = [UIColor defaultNavigationBarColor];
+    self.bottomView.backgroundColor = [UIColor defaultNavigationBarColor];
+    
+    self.settingsButton.tintColor = [UIColor footloosePrimaryColor];
 }
 
 - (IBAction)topSegmentedControlPressed:(UISegmentedControl *)control

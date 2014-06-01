@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "FLNumberButton.h"
+
 @protocol FLAddContactDelegate <NSObject>
 
 - (void)didConnectWithPhoneNumber:(NSString *)phoneNumber;
@@ -18,17 +20,17 @@
 
 @property (nonatomic, assign) id<FLAddContactDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet UIButton *numberButton1;
-@property (weak, nonatomic) IBOutlet UIButton *numberButton2;
-@property (weak, nonatomic) IBOutlet UIButton *numberButton3;
-@property (weak, nonatomic) IBOutlet UIButton *numberButton4;
-@property (weak, nonatomic) IBOutlet UIButton *numberButton5;
-@property (weak, nonatomic) IBOutlet UIButton *numberButton6;
-@property (weak, nonatomic) IBOutlet UIButton *numberButton7;
-@property (weak, nonatomic) IBOutlet UIButton *numberButton8;
-@property (weak, nonatomic) IBOutlet UIButton *numberButton9;
-@property (weak, nonatomic) IBOutlet UIButton *numberButton0;
-@property (weak, nonatomic) IBOutlet UIButton *deleteNumberButton;
+@property (weak, nonatomic) IBOutlet FLNumberButton *numberButton1;
+@property (weak, nonatomic) IBOutlet FLNumberButton *numberButton2;
+@property (weak, nonatomic) IBOutlet FLNumberButton *numberButton3;
+@property (weak, nonatomic) IBOutlet FLNumberButton *numberButton4;
+@property (weak, nonatomic) IBOutlet FLNumberButton *numberButton5;
+@property (weak, nonatomic) IBOutlet FLNumberButton *numberButton6;
+@property (weak, nonatomic) IBOutlet FLNumberButton *numberButton7;
+@property (weak, nonatomic) IBOutlet FLNumberButton *numberButton8;
+@property (weak, nonatomic) IBOutlet FLNumberButton *numberButton9;
+@property (weak, nonatomic) IBOutlet FLNumberButton *numberButton0;
+@property (weak, nonatomic) IBOutlet FLNumberButton *deleteNumberButton;
 @property (weak, nonatomic) IBOutlet UIButton *addContactButton;
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
