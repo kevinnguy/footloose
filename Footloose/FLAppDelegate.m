@@ -8,7 +8,7 @@
 
 #import "FLAppDelegate.h"
 
-#import "FLContactTableViewController.h"
+#import "FLContactViewController.h"
 #import "FLAddContactViewController.h"
 
 #import <SlideNavigationController.h>
@@ -19,7 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle: nil];
-    FLContactTableViewController *leftViewController = [[FLContactTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    FLContactViewController *leftViewController = (FLContactViewController *)[mainStoryboard instantiateViewControllerWithIdentifier: @"FLContactViewController"];
     FLAddContactViewController *rightViewController = (FLAddContactViewController *)[mainStoryboard instantiateViewControllerWithIdentifier: @"FLAddContactViewController"];
     
     [SlideNavigationController sharedInstance].leftMenu = leftViewController;

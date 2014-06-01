@@ -8,7 +8,7 @@
 
 #import "FLMessageViewController.h"
 
-#import "FLContactTableViewController.h"
+#import "FLContactViewController.h"
 #import "FLAddContactViewController.h"
 
 #import "FLTitleView.h"
@@ -22,7 +22,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import <FXBlurView/FXBlurView.h>
 
-@interface FLMessageViewController () <SlideNavigationControllerDelegate, FLContactTableViewDelegate, FLAddContactDelegate, UIAlertViewDelegate, UIScrollViewDelegate>
+@interface FLMessageViewController () <SlideNavigationControllerDelegate, FLContactViewDelegate, FLAddContactDelegate, UIAlertViewDelegate, UIScrollViewDelegate>
 @property (nonatomic, strong) FLUser *user;
 @property (nonatomic, strong) FLUser *recipient;
 
@@ -60,8 +60,10 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
                                   profileImage:[UIImage imageNamed:@"kevin"]];
     self.sender = self.user.phoneNumber;
     
-    FLContactTableViewController *contactTableViewController = (FLContactTableViewController *)[SlideNavigationController sharedInstance].leftMenu;
+    FLContactViewController *contactTableViewController = (FLContactViewController *)[SlideNavigationController sharedInstance].leftMenu;
     contactTableViewController.delegate = self;
+    contactTableViewController.userNameLabel.text = @"Kevin Nguy";
+    contactTableViewController.userProfileView.image = [UIImage imageNamed:@"kevin"];
     
     FLAddContactViewController *addContactViewController = (FLAddContactViewController *)[SlideNavigationController sharedInstance].rightMenu;
     addContactViewController.delegate = self;
@@ -161,7 +163,7 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
                                                         sender:[snapshot.value objectForKey:@"sender"]
                                                           date:[self.dateFormatter dateFromString:[snapshot.value objectForKey:@"timestamp"]]];
         
-        if ([self.recipient.phoneNumber isEqualToString:message.sender]) {
+        if ([message.sender isEqualToString:self.user.phoneNumber] || [message.sender isEqualToString:self.recipient.phoneNumber]) {
             [self.messages addObject:message];
 
             if (self.doneFetchingFlag) {

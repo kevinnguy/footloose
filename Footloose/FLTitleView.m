@@ -35,12 +35,8 @@
         _titleLabel.text = title;
         _titleLabel.textColor = [UIColor footloosePrimaryColor];
         
-        _profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, widthAndHeight, widthAndHeight)];
+        _profileImageView = [[FLRoundImageView alloc] initWithFrame:CGRectMake(0, 0, widthAndHeight, widthAndHeight)];
         _profileImageView.image = profileImage;
-        _profileImageView.layer.cornerRadius = CGRectGetWidth(_profileImageView.frame) / 2;
-        _profileImageView.layer.borderColor = [UIColor footloosePrimaryColor].CGColor;
-        _profileImageView.layer.borderWidth = 1;
-        _profileImageView.layer.masksToBounds = YES;
         
         CGRect mainFrame = CGRectMake(0,
                                       0,

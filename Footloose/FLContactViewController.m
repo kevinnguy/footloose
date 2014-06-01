@@ -1,16 +1,17 @@
 //
-//  FLContactTableViewController.m
+//  FLContactViewController.m
 //  Footloose
 //
-//  Created by kevin on 5/17/14.
+//  Created by kevin on 5/31/14.
 //  Copyright (c) 2014 kevinnguy. All rights reserved.
 //
 
-#import "FLContactTableViewController.h"
+#import "FLContactViewController.h"
 
 #import "FLContactTableViewCell.h"
 
-@interface FLContactTableViewController ()
+@interface FLContactViewController () <UITableViewDataSource, UITableViewDelegate>
+
 @end
 
 static NSString * const kJSQDemoAvatarNameCook = @"Tim Cook";
@@ -19,12 +20,14 @@ static NSString * const kJSQDemoAvatarNameWoz = @"Steve Wozniak";
 
 static NSString * const kCellIdentifier = @"FLContactTableViewCellIdentifier";
 
+#define RECENT_SEGMENT 0
+#define ALL_SEGMENT 1
 
-@implementation FLContactTableViewController
+@implementation FLContactViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+    if (self = [super initWithCoder:aDecoder]) {
         self.contactArray = [NSMutableArray new];
         
         FLUser *cook = [[FLUser alloc] initWithName:kJSQDemoAvatarNameCook
@@ -42,7 +45,6 @@ static NSString * const kCellIdentifier = @"FLContactTableViewCellIdentifier";
         [self.contactArray addObject:cook];
         [self.contactArray addObject:jobs];
         [self.contactArray addObject:woz];
-
     }
     
     return self;
@@ -52,12 +54,26 @@ static NSString * const kCellIdentifier = @"FLContactTableViewCellIdentifier";
 {
     [super viewDidLoad];
     
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"FLContactTableViewCell" bundle:nil]
          forCellReuseIdentifier:kCellIdentifier];
     FLContactTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
     self.tableView.rowHeight = CGRectGetHeight(cell.frame);
     
-    self.tableView.sectionHeaderHeight = 20.0f;
+    self.userNameLabel.text = @"Kevin Nguy";
+    self.userProfileView.image = [UIImage imageNamed:@"kevin"];
+}
+
+- (IBAction)topSegmentedControlPressed:(UISegmentedControl *)control
+{
+    if (control.selectedSegmentIndex == RECENT_SEGMENT) {
+        
+    }
+    else if (control.selectedSegmentIndex == ALL_SEGMENT) {
+        
+    }
 }
 
 
@@ -65,22 +81,6 @@ static NSString * const kCellIdentifier = @"FLContactTableViewCellIdentifier";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.contactArray.count;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
-{
-    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    header.contentView.backgroundColor = self.tableView.backgroundColor;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return @" ";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -99,5 +99,7 @@ static NSString * const kCellIdentifier = @"FLContactTableViewCellIdentifier";
     FLUser *user = self.contactArray[indexPath.row];
     [self.delegate didSelectUser:user];
 }
+
+
 
 @end

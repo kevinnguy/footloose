@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import "FLRoundImageView.h"
+
 @interface FLContactInfoProfileView : UIView
-@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet FLRoundImageView *profileImageView;
 
 @end

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "FLRoundImageView.h"
+
 @interface FLContactTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *contactTextLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *contactImageView;
+@property (weak, nonatomic) IBOutlet FLRoundImageView *contactImageView;
 @end
