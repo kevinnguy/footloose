@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 kevinnguy. All rights reserved.
 //
 
-#import "FLNumberButton.h"
+#import "FLRoundButton.h"
 
-@implementation FLNumberButton
+@implementation FLRoundButton
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {

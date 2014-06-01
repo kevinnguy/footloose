@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 kevinnguy. All rights reserved.
 //
 
-#import "FLAddContactViewController.h"
+#import "FLDialViewController.h"
 
 #import <SlideNavigationController.h>
 
-@interface FLAddContactViewController () <UIGestureRecognizerDelegate>
+@interface FLDialViewController () <UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) UILongPressGestureRecognizer *deleteNumberLongPressGesture;
 @property (nonatomic, strong) NSTimer *deleteNumberTimer;
 @end
 
-@implementation FLAddContactViewController
+@implementation FLDialViewController
 
 - (void)viewDidLoad
 {

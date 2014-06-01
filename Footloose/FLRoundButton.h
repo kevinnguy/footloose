@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FLNumberButton : UIButton
+@interface FLRoundButton : UIButton
 
 @end

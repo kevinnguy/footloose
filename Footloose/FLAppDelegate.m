@@ -9,7 +9,7 @@
 #import "FLAppDelegate.h"
 
 #import "FLContactViewController.h"
-#import "FLAddContactViewController.h"
+#import "FLDialViewController.h"
 
 #import <SlideNavigationController.h>
 #import <SlideNavigationContorllerAnimatorSlide.h>
@@ -22,7 +22,7 @@
 
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle: nil];
     FLContactViewController *leftViewController = (FLContactViewController *)[mainStoryboard instantiateViewControllerWithIdentifier: @"FLContactViewController"];
-    FLAddContactViewController *rightViewController = (FLAddContactViewController *)[mainStoryboard instantiateViewControllerWithIdentifier: @"FLAddContactViewController"];
+    FLDialViewController *rightViewController = (FLDialViewController *)[mainStoryboard instantiateViewControllerWithIdentifier: @"FLAddContactViewController"];
     
     [SlideNavigationController sharedInstance].leftMenu = leftViewController;
     [SlideNavigationController sharedInstance].rightMenu = rightViewController;

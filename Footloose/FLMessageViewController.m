@@ -9,7 +9,7 @@
 #import "FLMessageViewController.h"
 
 #import "FLContactViewController.h"
-#import "FLAddContactViewController.h"
+#import "FLDialViewController.h"
 
 #import "FLTitleView.h"
 #import "FLContactInfoMainView.h"
@@ -65,7 +65,7 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     contactTableViewController.userNameLabel.text = @"Kevin Nguy";
     contactTableViewController.userProfileView.image = [UIImage imageNamed:@"kevin"];
     
-    FLAddContactViewController *addContactViewController = (FLAddContactViewController *)[SlideNavigationController sharedInstance].rightMenu;
+    FLDialViewController *addContactViewController = (FLDialViewController *)[SlideNavigationController sharedInstance].rightMenu;
     addContactViewController.delegate = self;
     
     [SlideNavigationController sharedInstance].leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"contact"] style:UIBarButtonItemStyleBordered target:nil action:nil];
@@ -123,6 +123,8 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     [super viewDidAppear:animated];
 
     self.collectionView.collectionViewLayout.springinessEnabled = NO;
+    
+    [self titleButtonPressed:nil];
 }
 
 - (void)setupMessages
