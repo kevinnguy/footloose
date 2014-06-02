@@ -246,8 +246,6 @@
 				0A313C4519281BDB006CC8E7 /* FLContactTableViewCell.h */,
 				0A313C4619281BDB006CC8E7 /* FLContactTableViewCell.m */,
 				0A313C4819281BF6006CC8E7 /* FLContactTableViewCell.xib */,
-				0A5340E0193842CB00086FA9 /* FLContactInfoMainView.h */,
-				0A5340E1193842CB00086FA9 /* FLContactInfoMainView.m */,
 				0A80A908193A60FC00A0E2E7 /* FLTitleView.h */,
 				0A80A909193A60FC00A0E2E7 /* FLTitleView.m */,
 				0A80A911193AAC3200A0E2E7 /* FLRoundImageView.h */,
@@ -281,6 +279,8 @@
 		0A5340E319384F3700086FA9 /* Contact View */ = {
 			isa = PBXGroup;
 			children = (
+				0A5340E0193842CB00086FA9 /* FLContactInfoMainView.h */,
+				0A5340E1193842CB00086FA9 /* FLContactInfoMainView.m */,
 				0AB149EC193564CC005C6B0B /* FLContactInfoScrollView.h */,
 				0AB149ED193564CC005C6B0B /* FLContactInfoScrollView.m */,
 				0A5340DB19383C4700086FA9 /* FLContactInfoCardScrollView.xib */,

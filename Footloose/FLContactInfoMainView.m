@@ -29,7 +29,9 @@
         self.backgroundImageView.image = [UIImage imageNamed:@"purple"];
         self.backgroundImageView.alpha = 0;
         
-        self.contactInfoScrollView = [[FLContactInfoScrollView alloc] initWithFrame:frame];
+        int x = 10;
+        int width = CGRectGetWidth(frame) - x * 2;
+        self.contactInfoScrollView = [[FLContactInfoScrollView alloc] initWithFrame:CGRectMake(x, 0, width, CGRectGetHeight(frame))];
         self.contactInfoScrollView.delegate = delegate;
         self.contactInfoScrollView.cardScrollView.delegate = delegate;
     }
@@ -38,6 +40,7 @@
 
 - (void)setHidden:(BOOL)hidden
 {
+    
     __weak typeof(self) weakSelf = self;
 
     if (hidden) {
@@ -45,6 +48,7 @@
         [UIView animateWithDuration:0.2f animations:^{
             weakSelf.blurView.alpha = 0;
             weakSelf.backgroundImageView.alpha = 0;
+            [[UIApplication sharedApplication] setStatusBarHidden:!hidden];
         } completion:^(BOOL finished) {
             [weakSelf.blurView removeFromSuperview];
             [weakSelf.backgroundImageView removeFromSuperview];
@@ -66,6 +70,7 @@
         [UIView animateWithDuration:0.3f animations:^{
             weakSelf.blurView.alpha = 1;
             weakSelf.backgroundImageView.alpha = .85f;
+            [[UIApplication sharedApplication] setStatusBarHidden:!hidden];
         }];
         
         [UIView animateWithDuration:0.3f animations:nil completion:^(BOOL finished) {

@@ -123,8 +123,6 @@ NSString *const kPreambleBaseURL = @"http://preamble.herokuapp.com/";
     [super viewDidAppear:animated];
 
     self.collectionView.collectionViewLayout.springinessEnabled = NO;
-    
-    [self titleButtonPressed:nil];
 }
 
 - (void)setupMessages

@@ -37,7 +37,7 @@
         
         int yOffset = (CGRectGetHeight(frame) - CGRectGetHeight(self.cardScrollView.frame) - 20) / 2;
         CGRect cardFrame = self.cardScrollView.frame;
-        cardFrame.origin.y = CGRectGetHeight(self.bounds) + yOffset + 20;
+        cardFrame.origin.y = CGRectGetHeight(self.bounds) + yOffset + 10;
         self.cardScrollView.frame = cardFrame;
         self.cardScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.cardScrollView.frame) * 2, CGRectGetHeight(self.cardScrollView.frame));
         self.cardScrollView.pagingEnabled = YES;
@@ -45,7 +45,7 @@
         self.cardScrollView.showsVerticalScrollIndicator = NO;
         self.cardScrollView.layer.cornerRadius = 4;
         
-        self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(141,
+        self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(131,
                                                                            cardFrame.origin.y + 416,
                                                                            39,
                                                                            37)];
